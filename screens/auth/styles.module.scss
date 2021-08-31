@@ -1,0 +1,29 @@
+@import '../../styles/colors.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth {
+  width: 25rem;
+  width: 25rem;
+  padding: 1rem;
+  border: 1px solid $blue;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  margin-bottom: 1rem;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+}

@@ -9,6 +9,7 @@ import Skeleton from './skeleton';
 import Slider from './slider';
 import Tabs from './tabs';
 import Text from './text';
+import Title from './title';
 
 export {
   Avatar,
@@ -22,4 +23,5 @@ export {
   Slider,
   Tabs,
   Text,
+  Title,
 };
