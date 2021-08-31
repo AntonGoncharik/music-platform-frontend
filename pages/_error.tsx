@@ -1,9 +1,16 @@
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 
-const ErrorPage = (props) => {
-  const router = useRouter();
+import { Button } from '../ui-kit';
+import s from './error.module.scss';
 
-  return <div>404</div>;
+const ErrorPage = () => {
+  return (
+    <div className={s.container}>
+      <h1>Sorry, page not found</h1>
+      <h1>Please, return to the main page or try again</h1>
+      <Button onClick={() => Router.replace('/')}>Return to the main page</Button>
+    </div>
+  );
 };
 
 export default ErrorPage;
