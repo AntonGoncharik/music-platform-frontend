@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tabs } from 'antd';
 
+import s from './styles.module.scss';
+
 const { TabPane } = Tabs;
 
 interface ITabs {
@@ -9,7 +11,7 @@ interface ITabs {
 
 const View: React.FC<ITabs> = (props) => {
   return (
-    <Tabs defaultActiveKey="1" onChange={props.onChange}>
+    <Tabs defaultActiveKey="1" onChange={props.onChange} centered>
       <TabPane tab="Tab 1" key="1">
         Content of Tab Pane 1
       </TabPane>

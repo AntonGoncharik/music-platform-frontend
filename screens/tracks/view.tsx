@@ -1,14 +1,20 @@
 import React from 'react';
-import { Button } from 'antd';
 
+import { Tabs } from '../../ui-kit';
+import { MainLayout } from '../../layouts';
 import s from './styles.module.scss';
 
 const View: React.FC = () => {
   return (
-    <div className={s.container}>
-      tracks
-      <Button type="primary">Primary Button</Button>
-    </div>
+    <MainLayout>
+      <div className={s.container}>
+        <Tabs
+          onChange={(e) => {
+            console.log(e);
+          }}
+        />
+      </div>
+    </MainLayout>
   );
 };
 

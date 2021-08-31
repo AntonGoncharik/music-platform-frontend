@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Input, Button, Text, Title } from '../../ui-kit';
+import { Head } from '../../components';
 import s from './styles.module.scss';
 
 interface IAuth {
@@ -17,6 +18,7 @@ interface IAuth {
 const View: React.FC<IAuth> = (props) => {
   return (
     <div className={s.container}>
+      <Head />
       {props.page === 0 && (
         <div className={s.auth}>
           <div className={s.text}>
