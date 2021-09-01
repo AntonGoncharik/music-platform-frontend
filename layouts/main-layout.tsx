@@ -10,8 +10,10 @@ const MainLayout: React.FC<IMainLayout> = (props) => {
   return (
     <>
       <Head />
-      <Header />
-      <Navbar />
+      <div className="sticky-header-navbar">
+        <Header />
+        <Navbar />
+      </div>
       <div>{props.children}</div>
       {/* <Player /> */}
     </>

@@ -1,8 +1,11 @@
+@import '../../styles/colors.scss';
+
 .container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   height: 3rem;
+  background-color: $blue;
 }
 
 .avatar {
