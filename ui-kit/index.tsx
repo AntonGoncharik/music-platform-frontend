@@ -10,6 +10,7 @@ import Slider from './slider';
 import Tabs from './tabs';
 import Text from './text';
 import Title from './title';
+import Dropdown from './dropdown';
 
 export {
   Avatar,
@@ -24,4 +25,5 @@ export {
   Tabs,
   Text,
   Title,
+  Dropdown,
 };

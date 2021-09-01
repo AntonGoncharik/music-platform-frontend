@@ -1,3 +1,10 @@
 .container {
-  height: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 3rem;
+}
+
+.avatar {
+  margin-right: 1rem;
 }
