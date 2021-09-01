@@ -4,9 +4,10 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 interface IInput {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
   type?: string;
+  disabled?: boolean;
 }
 
 const View: React.FC<IInput> = (props) => {
@@ -19,6 +20,7 @@ const View: React.FC<IInput> = (props) => {
         placeholder={props.placeholder}
         type={props.type}
         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+        disabled={props.disabled}
       />
     );
   }
@@ -30,6 +32,7 @@ const View: React.FC<IInput> = (props) => {
       size="large"
       placeholder={props.placeholder}
       type={props.type}
+      disabled={props.disabled}
     />
   );
 };

@@ -1,8 +1,18 @@
 import React from 'react';
+import Router from 'next/router';
 
 import { Dropdown, Avatar } from '../../ui-kit';
 import { menuItems } from '../../constants';
 import s from './styles.module.scss';
+
+const goToUrl = (url: string) => {
+  if (url === 'logout') {
+    Router.replace('/auth');
+    return;
+  }
+
+  Router.push(`/${url}`);
+};
 
 const View: React.FC = () => {
   return (
@@ -14,7 +24,7 @@ const View: React.FC = () => {
           }
         />
       </div>
-      <Dropdown name={'ant.goncharik@gmail.com'} list={menuItems} />
+      <Dropdown name={'ant.goncharik@gmail.com'} list={menuItems} goToUrl={goToUrl} />
     </div>
   );
 };

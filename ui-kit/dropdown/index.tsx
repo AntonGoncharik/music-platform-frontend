@@ -10,6 +10,7 @@ interface IItemDropdown {
 interface IDropdown {
   name: string;
   list: IItemDropdown[];
+  goToUrl: (url: string) => void;
 }
 
 const View: React.FC<IDropdown> = (props) => {
@@ -18,7 +19,7 @@ const View: React.FC<IDropdown> = (props) => {
       {props.list.map((item) => {
         return (
           <Menu.Item key={item.key}>
-            <span>{item.name}</span>
+            <span onClick={() => props.goToUrl(item.key)}>{item.name}</span>
           </Menu.Item>
         );
       })}
