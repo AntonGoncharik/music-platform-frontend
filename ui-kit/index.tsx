@@ -1,6 +1,6 @@
 import Avatar from './avatar';
 import Button from './button';
-import DragAndDropZone from './dragAndDropZone';
+import UploadZone from './upload-zone';
 import Input from './input';
 import Loader from './loader';
 import Menu from './menu';
@@ -11,11 +11,12 @@ import Tabs from './tabs';
 import Text from './text';
 import Title from './title';
 import Dropdown from './dropdown';
+import UploadImage from './upload-image';
 
 export {
   Avatar,
   Button,
-  DragAndDropZone,
+  UploadZone,
   Input,
   Loader,
   Menu,
@@ -26,4 +27,5 @@ export {
   Text,
   Title,
   Dropdown,
+  UploadImage,
 };

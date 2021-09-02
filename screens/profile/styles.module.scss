@@ -15,7 +15,6 @@
 }
 
 .left {
-  width: 100%;
   margin-right: 0.5rem;
 }
 
@@ -31,4 +30,9 @@
 .footer {
   display: flex;
   justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.buttonRemoveImage {
+  margin-top: 1rem;
 }

@@ -9,6 +9,8 @@ const Container: React.FC = () => {
 
   const save = () => {};
 
+  const removeImage = () => {};
+
   return (
     <View
       email="aswfasfasfasf"
@@ -17,6 +19,7 @@ const Container: React.FC = () => {
       setFirstName={setFirstName}
       setLastName={setLastName}
       save={save}
+      removeImage={removeImage}
     />
   );
 };
