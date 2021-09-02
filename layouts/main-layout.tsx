@@ -14,7 +14,7 @@ const MainLayout: React.FC<IMainLayout> = (props) => {
         <Header />
         <Navbar />
       </div>
-      <div>{props.children}</div>
+      {props.children}
       {/* <Player /> */}
     </>
   );
