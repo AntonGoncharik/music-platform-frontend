@@ -5,22 +5,25 @@ import s from './styles.module.scss';
 
 const { TabPane } = Tabs;
 
+interface ITab {
+  name: string;
+}
+
 interface ITabs {
   onChange: (event: any) => void;
+  list: ITab[];
 }
 
 const View: React.FC<ITabs> = (props) => {
   return (
     <Tabs defaultActiveKey="1" onChange={props.onChange} centered>
-      <TabPane tab="Tab 1" key="1">
-        Content of Tab Pane 1
-      </TabPane>
-      <TabPane tab="Tab 2" key="2">
-        Content of Tab Pane 2
-      </TabPane>
-      <TabPane tab="Tab 3" key="3">
-        Content of Tab Pane 3
-      </TabPane>
+      {props.list.map((item) => {
+        return (
+          <TabPane tab={item.name} key={item.name}>
+            {props.children}
+          </TabPane>
+        );
+      })}
     </Tabs>
   );
 };

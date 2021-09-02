@@ -4,3 +4,15 @@
   background-color: $gray;
   padding: 1rem;
 }
+
+.track {
+  margin-bottom: 0.5rem;
+
+  &:last-child {
+    margin-bottom: 0rem;
+  }
+
+  &:hover {
+    background-color: $gray_dark;
+  }
+}
