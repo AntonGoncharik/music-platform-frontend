@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Head, Header, Navbar } from '../components';
+import { Head, Header, Navbar, Player } from '../components';
 
 interface IMainLayout {
   description?: string;
@@ -15,7 +15,7 @@ const MainLayout: React.FC<IMainLayout> = (props) => {
         <Navbar />
       </div>
       {props.children}
-      {/* <Player /> */}
+      <Player active={false} name="gfhjk" />
     </>
   );
 };

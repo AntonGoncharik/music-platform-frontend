@@ -30,7 +30,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <NextNprogress color={colors.blue} startPosition={0.3} stopDelayMs={200} height={5} />
+      <NextNprogress color={colors.blue} startPosition={0.3} stopDelayMs={200} height={2} />
       {renderComponent()}
     </>
   );
