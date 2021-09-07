@@ -8,7 +8,7 @@ interface IMainLayout {
 
 const MainLayout: React.FC<IMainLayout> = (props) => {
   return (
-    <>
+    <div className="app_container">
       <Head />
       <div className="sticky-header-navbar">
         <Header />
@@ -16,7 +16,7 @@ const MainLayout: React.FC<IMainLayout> = (props) => {
       </div>
       {props.children}
       <Player active={false} name="gfhjk" />
-    </>
+    </div>
   );
 };
 

@@ -18,9 +18,6 @@ const View: React.FC<IProfile> = (props) => {
   return (
     <MainLayout>
       <div className={s.container}>
-        <div className={s.head}>
-          <Title>Profile</Title>
-        </div>
         <div className={s.body}>
           <div className={s.left}>
             <UploadImage />

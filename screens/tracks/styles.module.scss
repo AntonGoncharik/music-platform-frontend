@@ -1,8 +1,14 @@
 @import '../../styles//colors.scss';
 
 .container {
+  background-color: $white;
+}
+
+.tracks {
   background-color: $gray;
-  padding: 1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 5rem;
 }
 
 .track {

@@ -23,13 +23,13 @@ const View: React.FC<ITrack> = (props) => {
           {props.active ? (
             <Button
               onClick={() => {}}
-              icon={<PauseCircleOutlined style={{ fontSize: '32px' }} />}
+              icon={<PauseCircleOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           ) : (
             <Button
               onClick={() => {}}
-              icon={<PlayCircleOutlined style={{ fontSize: '32px' }} />}
+              icon={<PlayCircleOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           )}
@@ -45,14 +45,14 @@ const View: React.FC<ITrack> = (props) => {
         <div>
           <Button
             onClick={() => {}}
-            icon={<PlusOutlined style={{ fontSize: '32px' }} />}
+            icon={<PlusOutlined style={{ fontSize: '24px' }} />}
             type="text"
           />
         </div>
         <div className={s.buttonDownload}>
           <Button
             onClick={() => {}}
-            icon={<DownloadOutlined style={{ fontSize: '32px' }} />}
+            icon={<DownloadOutlined style={{ fontSize: '24px' }} />}
             type="text"
           />
         </div>

@@ -1,3 +1,13 @@
+@import '../../styles/colors.scss';
+
 .navbar {
   justify-content: center;
+}
+
+.icon {
+  font-size: 24px;
+
+  & svg {
+    font-size: 24px;
+  }
 }

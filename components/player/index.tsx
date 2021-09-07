@@ -34,7 +34,7 @@ const View: React.FC<IPlayer> = (props) => {
           <div className={s.button}>
             <Button
               onClick={() => {}}
-              icon={<BackwardOutlined style={{ fontSize: '32px' }} />}
+              icon={<BackwardOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           </div>
@@ -42,13 +42,13 @@ const View: React.FC<IPlayer> = (props) => {
             {props.active ? (
               <Button
                 onClick={() => {}}
-                icon={<PauseOutlined style={{ fontSize: '32px' }} />}
+                icon={<PauseOutlined style={{ fontSize: '24px' }} />}
                 type="text"
               />
             ) : (
               <Button
                 onClick={() => {}}
-                icon={<CaretRightOutlined style={{ fontSize: '32px' }} />}
+                icon={<CaretRightOutlined style={{ fontSize: '24px' }} />}
                 type="text"
               />
             )}
@@ -56,7 +56,7 @@ const View: React.FC<IPlayer> = (props) => {
           <div className={s.button}>
             <Button
               onClick={() => {}}
-              icon={<ForwardOutlined style={{ fontSize: '32px' }} />}
+              icon={<ForwardOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           </div>
@@ -66,20 +66,20 @@ const View: React.FC<IPlayer> = (props) => {
           <div className={s.sound}>
             <Button
               onClick={() => {}}
-              icon={<SoundOutlined style={{ fontSize: '32px' }} />}
+              icon={<SoundOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           </div>
           <div className={s.button}>
             <Button
               onClick={() => {}}
-              icon={<PlusOutlined style={{ fontSize: '32px' }} />}
+              icon={<PlusOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           </div>
           <Button
             onClick={() => {}}
-            icon={<DownloadOutlined style={{ fontSize: '32px' }} />}
+            icon={<DownloadOutlined style={{ fontSize: '24px' }} />}
             type="text"
           />
         </div>

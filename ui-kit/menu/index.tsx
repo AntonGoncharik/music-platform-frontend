@@ -1,10 +1,12 @@
 import React from 'react';
 import { Menu } from 'antd';
+import { UserOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import s from './styles.module.scss';
 
 interface IItem {
   key: string;
+  name: string;
   icon: string;
 }
 
@@ -13,6 +15,11 @@ interface IMenu {
   onClick: (event: any) => void;
   selectedKeys: string[];
 }
+
+const icons = {
+  profile: <UserOutlined />,
+  tracks: <MenuUnfoldOutlined />,
+};
 
 const View: React.FC<IMenu> = (props) => {
   return (
@@ -23,7 +30,11 @@ const View: React.FC<IMenu> = (props) => {
       className={s.navbar}
     >
       {props.items.map((item) => {
-        return <Menu.Item key={item.key}>{item.key}</Menu.Item>;
+        return (
+          <Menu.Item key={item.key} icon={icons[item.icon]} className={s.icon}>
+            {item.name}
+          </Menu.Item>
+        );
       })}
     </Menu>
   );

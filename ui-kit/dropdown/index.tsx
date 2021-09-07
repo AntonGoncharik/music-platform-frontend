@@ -2,6 +2,8 @@ import React from 'react';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
+import s from './styles.module.scss';
+
 interface IItemDropdown {
   name: string;
   key: string;
@@ -28,9 +30,9 @@ const View: React.FC<IDropdown> = (props) => {
 
   return (
     <Dropdown overlay={menu}>
-      <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+      <span className={s.btn_dropdown}>
         {props.name} <DownOutlined />
-      </a>
+      </span>
     </Dropdown>
   );
 };

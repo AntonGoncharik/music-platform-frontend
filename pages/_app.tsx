@@ -17,12 +17,16 @@ const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     setTimeout(() => {
       setAuthLoading(false);
-    }, 5000);
+    }, 1000);
   }, []);
 
   const renderComponent = () => {
     if (authLoading) {
-      return <Loader />;
+      return (
+        <div className="app_container_loader">
+          <Loader />
+        </div>
+      );
     }
 
     return <Component {...pageProps} />;

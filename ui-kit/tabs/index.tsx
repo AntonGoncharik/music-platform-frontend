@@ -16,7 +16,7 @@ interface ITabs {
 
 const View: React.FC<ITabs> = (props) => {
   return (
-    <Tabs defaultActiveKey="1" onChange={props.onChange} centered>
+    <Tabs defaultActiveKey="1" onChange={props.onChange} centered className={s.tabs}>
       {props.list.map((item) => {
         return (
           <TabPane tab={item.name} key={item.name}>

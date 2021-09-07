@@ -17,6 +17,13 @@ a {
 }
 
 #__next {
+  background-image: url('../public/img/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.app_container {
   max-width: 1200px;
   min-height: 100vh;
   margin: 0 auto;
@@ -42,4 +49,11 @@ a {
     width: 20rem;
     height: 20rem;
   }
+}
+
+.app_container_loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 3rem);
 }
