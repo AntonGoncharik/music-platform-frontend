@@ -1,15 +1,12 @@
-import { useEffect } from 'react';
-import Router from 'next/router';
+const InitialPage = () => {};
 
-const Home = () => {
-  useEffect(() => {
-    const { pathname } = Router;
-    if (pathname == '/') {
-      Router.push('/tracks');
-    }
-  });
+export default InitialPage;
 
-  return <div></div>;
-};
-
-export default Home;
+export function getServerSideProps() {
+  return {
+    redirect: {
+      permanent: false,
+      destination: '/tracks',
+    },
+  };
+}

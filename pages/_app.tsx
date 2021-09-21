@@ -1,23 +1,26 @@
 import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useRouter } from 'next/router';
 import 'antd/dist/antd.css';
 
 import { colors } from '../styles/colors';
 import '../styles/globals.scss';
 import { Loader } from '../ui-kit';
+import { StoreProvider, useStore } from '../store/provider';
 
-const App = ({ Component, pageProps }: AppProps) => {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [auth, setAuth] = useState(false);
+const App = observer(({ Component, pageProps }: AppProps) => {
   const [authLoading, setAuthLoading] = useState(true);
 
-  // autologin
+  const router = useRouter();
+
+  const store = useStore();
+
   useEffect(() => {
     setTimeout(() => {
       setAuthLoading(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   const renderComponent = () => {
@@ -38,6 +41,14 @@ const App = ({ Component, pageProps }: AppProps) => {
       {renderComponent()}
     </>
   );
-};
+});
 
-export default App;
+const RootApp = observer((props: AppProps) => {
+  return (
+    <StoreProvider {...props.pageProps}>
+      <App {...props} />
+    </StoreProvider>
+  );
+});
+
+export default RootApp;

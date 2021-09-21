@@ -29,7 +29,7 @@ const View: React.FC<IDropdown> = (props) => {
   );
 
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown overlay={menu} trigger={['click']}>
       <span className={s.btn_dropdown}>
         {props.name} <DownOutlined />
       </span>
