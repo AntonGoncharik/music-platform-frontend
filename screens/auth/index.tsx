@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 import View from './view';
 import { useInput } from '../../hooks';
-import { useStore } from '../../store/provider';
+import { useStore } from '../../store';
 
-const Container: React.FC = () => {
+const Container: React.FC = (props: any) => {
   const [page, setPage] = useState(0);
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
 
+  const router = useRouter();
+
   const store = useStore();
 
   const signin = () => {
-    store.signin();
-    Router.replace('/tracks');
+    store.userStore.signin();
+    router.push('/tracks');
   };
 
   const signup = () => {};

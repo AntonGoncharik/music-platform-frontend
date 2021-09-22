@@ -1,24 +1,20 @@
-import { redirect } from 'next/dist/server/api-utils';
 import React from 'react';
+import Router from 'next/router';
 
 import { Tracks } from '../../screens';
-import { useStore } from '../../store/provider';
 
 const Container: React.FC = () => {
   return <Tracks />;
 };
 
+Container.getInitialProps = (context) => {
+  if (!context.store.userStore.isAuth) {
+    typeof window !== 'undefined'
+      ? Router.push('/auth')
+      : context.res.writeHead(301, { Location: '/auth' }).end();
+  }
+
+  return {};
+};
+
 export default Container;
-
-export async function getServerSideProps() {
-  // return {
-  //   redirect: {
-  //     permanent: false,
-  //     destination: '/auth',
-  //   },
-  // };
-
-  return {
-    props: {},
-  };
-}

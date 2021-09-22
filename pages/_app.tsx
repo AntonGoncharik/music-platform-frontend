@@ -1,30 +1,46 @@
-import type { AppProps } from 'next/app';
 import NextNprogress from 'nextjs-progressbar';
-import React, { useState, useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
-import { useRouter } from 'next/router';
+import React from 'react';
+import App from 'next/app';
+import { Provider } from 'mobx-react';
+
 import 'antd/dist/antd.css';
-
-import { colors } from '../styles/colors';
 import '../styles/globals.scss';
+import { colors } from '../styles/colors';
 import { Loader } from '../ui-kit';
-import { StoreProvider, useStore } from '../store/provider';
+import { initializeStore } from '../store';
 
-const App = observer(({ Component, pageProps }: AppProps) => {
-  const [authLoading, setAuthLoading] = useState(true);
+class RootApp extends App {
+  store: any;
 
-  const router = useRouter();
+  constructor(props: any) {
+    super(props);
+    const isServer = typeof window === 'undefined';
+    this.store = isServer ? props.initialState : initializeStore();
+    this.state = { authLoading: true };
+  }
 
-  const store = useStore();
+  static async getInitialProps(appContext: any) {
+    const store = initializeStore();
+    appContext.ctx.store = store;
+    const appProps = await App.getInitialProps(appContext);
+    return {
+      ...appProps,
+      initialState: store,
+    };
+  }
 
-  useEffect(() => {
+  componentDidMount() {
     setTimeout(() => {
-      setAuthLoading(false);
-    }, 500);
-  }, []);
+      this.setState({
+        authLoading: false,
+      });
+    }, 1000);
+  }
 
-  const renderComponent = () => {
-    if (authLoading) {
+  render() {
+    const { Component, pageProps } = this.props;
+
+    if (this.state.authLoading) {
       return (
         <div className="app_container_loader">
           <Loader />
@@ -32,23 +48,13 @@ const App = observer(({ Component, pageProps }: AppProps) => {
       );
     }
 
-    return <Component {...pageProps} />;
-  };
-
-  return (
-    <>
-      <NextNprogress color={colors.blue} startPosition={0.3} stopDelayMs={200} height={2} />
-      {renderComponent()}
-    </>
-  );
-});
-
-const RootApp = observer((props: AppProps) => {
-  return (
-    <StoreProvider {...props.pageProps}>
-      <App {...props} />
-    </StoreProvider>
-  );
-});
+    return (
+      <Provider {...this.store}>
+        <NextNprogress color={colors.blue} startPosition={0.3} stopDelayMs={200} height={2} />
+        <Component {...pageProps} />
+      </Provider>
+    );
+  }
+}
 
 export default RootApp;
