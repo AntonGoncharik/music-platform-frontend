@@ -4,17 +4,22 @@ import Router from 'next/router';
 import { Dropdown, Avatar } from '../../ui-kit';
 import { menuItems } from '../../constants';
 import s from './styles.module.scss';
-
-const goToUrl = (url: string) => {
-  if (url === 'logout') {
-    Router.replace('/auth');
-    return;
-  }
-
-  Router.push(`/${url}`);
-};
+import { getStore } from '../../store';
 
 const View: React.FC = () => {
+  const store = getStore();
+
+  const goToUrl = (url: string) => {
+    if (url === 'logout') {
+      store.userStore.logout();
+      Router.replace('/auth');
+      return;
+    }
+
+    store.userStore.setActiveItemNavbar('profile');
+    Router.push(`/${url}`);
+  };
+
   return (
     <div className={s.container}>
       <div className={s.avatar}>

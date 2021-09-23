@@ -22,6 +22,6 @@ export function initializeStore() {
   return store;
 }
 
-export const useStore = () => {
+export const getStore = () => {
   return store;
 };

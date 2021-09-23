@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import View from './view';
 import { useInput } from '../../hooks';
 
-const Container: React.FC = () => {
+const Container: React.FC = observer(() => {
   const [firstName, setFirstName] = useInput('');
   const [lastName, setLastName] = useInput('');
 
@@ -22,6 +23,6 @@ const Container: React.FC = () => {
       removeImage={removeImage}
     />
   );
-};
+});
 
 export default Container;

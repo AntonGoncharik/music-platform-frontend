@@ -1,10 +1,10 @@
 import React from 'react';
 
 import View from './view';
-// import { useStore } from '../../store/provider';
+// import { getStore } from '../../store/provider';
 
 const Container: React.FC = () => {
-  // const store = useStore();
+  // const store = getStore();
 
   const tracks = [
     { name: '111', time: '03:34', active: false },

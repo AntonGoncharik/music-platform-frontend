@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import View from './view';
 import { useInput } from '../../hooks';
-import { useStore } from '../../store';
+import { getStore } from '../../store';
 
 const Container: React.FC = (props: any) => {
   const [page, setPage] = useState(0);
@@ -12,7 +12,7 @@ const Container: React.FC = (props: any) => {
 
   const router = useRouter();
 
-  const store = useStore();
+  const store = getStore();
 
   const signin = () => {
     store.userStore.signin();

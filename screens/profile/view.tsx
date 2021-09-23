@@ -1,5 +1,4 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
 import { MainLayout } from '../../layouts';
 import { Input, Button, Text, Title, UploadImage } from '../../ui-kit';
@@ -15,7 +14,7 @@ interface IProfile {
   removeImage: () => void;
 }
 
-const View: React.FC<IProfile> = observer((props) => {
+const View: React.FC<IProfile> = (props) => {
   return (
     <MainLayout>
       <div className={s.container}>
@@ -50,6 +49,6 @@ const View: React.FC<IProfile> = observer((props) => {
       </div>
     </MainLayout>
   );
-});
+};
 
 export default View;
