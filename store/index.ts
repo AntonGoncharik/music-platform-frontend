@@ -1,6 +1,7 @@
 import { enableStaticRendering } from 'mobx-react-lite';
 
 import { UserStore } from './user';
+import { PlayerStore } from './player';
 
 let store: any = null;
 const isServer: boolean = typeof window === 'undefined';
@@ -11,11 +12,13 @@ export function initializeStore() {
   if (isServer) {
     return {
       userStore: new UserStore(),
+      playerStore: new PlayerStore(),
     };
   }
   if (store === null) {
     store = {
       userStore: new UserStore(),
+      playerStore: new PlayerStore(),
     };
   }
 
