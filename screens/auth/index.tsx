@@ -15,11 +15,20 @@ const Container: React.FC = (props: any) => {
   const store = getStore();
 
   const signin = () => {
-    store.userStore.signin();
-    router.push('/tracks');
+    store.userStore.signin(
+      { email, password },
+      () => router.push('/tracks'),
+      () => {},
+    );
   };
 
-  const signup = () => {};
+  const signup = () => {
+    store.userStore.signup(
+      { email, password },
+      () => {},
+      () => {},
+    );
+  };
 
   return (
     <View
