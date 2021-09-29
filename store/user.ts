@@ -1,11 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 
-import { AuthService } from '../services';
+import { AuthService, UsersService } from '../services';
 import { IAuth } from '../interfaces';
 
 export class UserStore {
-  isAuth: boolean = false;
+  isAuth: boolean = true;
   activeItemNavbar: string = 'tracks';
+  token: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -40,10 +41,31 @@ export class UserStore {
   }
 
   logout() {
+    globalThis.localStorage.removeItem('token');
+    globalThis.localStorage.removeItem('refreshToken');
+
     this.isAuth = false;
+  }
+
+  async autosignin(callbackOk: () => void, callbackError: () => void) {
+    try {
+      const result = await UsersService.getUserByToken();
+
+      if (result.length) {
+        this.isAuth = true;
+
+        callbackOk();
+      }
+    } catch (error) {
+      callbackError();
+    }
   }
 
   setActiveItemNavbar(activeItemNavbar: string) {
     this.activeItemNavbar = activeItemNavbar;
+  }
+
+  setToken() {
+    this.token = true;
   }
 }

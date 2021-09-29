@@ -7,14 +7,14 @@ const Container: React.FC = () => {
   return <Profile />;
 };
 
-Container.getInitialProps = (context) => {
-  if (!context.store.userStore.isAuth) {
-    typeof window !== 'undefined'
-      ? Router.push('/auth')
-      : context.res.writeHead(301, { Location: '/auth' }).end();
-  }
+// Container.getInitialProps = (context) => {
+//   if (!context.store.userStore.isAuth) {
+//     typeof window !== 'undefined'
+//       ? Router.push('/auth')
+//       : context.res.writeHead(301, { Location: '/auth' }).end();
+//   }
 
-  return {};
-};
+//   return {};
+// };
 
 export default Container;

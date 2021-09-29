@@ -1,3 +1,4 @@
 import { IAuth } from './auth';
+import { IUser } from './user';
 
-export type { IAuth };
+export type { IAuth, IUser };

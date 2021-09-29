@@ -13,10 +13,13 @@ Container.getInitialProps = async (context) => {
     typeof window !== 'undefined'
       ? Router.push('/auth')
       : context.res.writeHead(301, { Location: '/auth' }).end();
+
+    return {};
   }
 
-  const result = await TrackService.getTracks();
-  console.log(result);
+  console.log('context.store.userStore', context.store.userStore.token);
+  // const result = await TrackService.getTracks();
+
   return {};
 };
 

@@ -7,10 +7,12 @@ import 'antd/dist/antd.css';
 import '../styles/globals.scss';
 import { colors } from '../styles/colors';
 import { Loader } from '../ui-kit';
-import { initializeStore } from '../store';
+import { initializeStore, getStore } from '../store';
+import { Autosignin } from '../components';
 
 class RootApp extends App {
   store: any;
+  state: { authLoading: boolean };
 
   constructor(props: any) {
     super(props);
@@ -29,12 +31,14 @@ class RootApp extends App {
     };
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        authLoading: false,
-      });
-    }, 1000);
+  async componentDidMount() {
+    await this.store.userStore.autosignin(
+      () => {
+        this.store.userStore.setToken();
+        this.setState({ authLoading: false });
+      },
+      () => {},
+    );
   }
 
   render() {
