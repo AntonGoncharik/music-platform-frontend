@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import cookieCutter from 'cookie-cutter';
 
 import { AuthService, UsersService } from '../services';
 import { IAuth } from '../interfaces';
@@ -6,7 +7,6 @@ import { IAuth } from '../interfaces';
 export class UserStore {
   isAuth: boolean = true;
   activeItemNavbar: string = 'tracks';
-  token: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -15,6 +15,8 @@ export class UserStore {
   async signin(body: IAuth, callbackOk: () => void, callbackError: () => void) {
     try {
       const result = await AuthService.signin(body);
+
+      cookieCutter.set('token', result.tokens.token);
 
       globalThis.localStorage.setItem('token', result.tokens.token);
       globalThis.localStorage.setItem('refreshToken', result.tokens.refreshToken);
@@ -27,9 +29,33 @@ export class UserStore {
     }
   }
 
+  async autosignin(callbackOk: () => void, callbackError: () => void) {
+    try {
+      const token = localStorage.getItem('token');
+
+      const result = await UsersService.getUserByToken({
+        headers: {
+          Authorization: `jwt ${token}`,
+        },
+      });
+
+      if (result.length) {
+        this.isAuth = true;
+
+        callbackOk();
+      } else {
+        callbackError();
+      }
+    } catch (error) {
+      callbackError();
+    }
+  }
+
   async signup(body: IAuth, callbackOk: () => void, callbackError: () => void) {
     try {
       const result = await AuthService.signup(body);
+
+      cookieCutter.set('token', result.tokens.token);
 
       globalThis.localStorage.setItem('token', result.tokens.token);
       globalThis.localStorage.setItem('refreshToken', result.tokens.refreshToken);
@@ -47,25 +73,7 @@ export class UserStore {
     this.isAuth = false;
   }
 
-  async autosignin(callbackOk: () => void, callbackError: () => void) {
-    try {
-      const result = await UsersService.getUserByToken();
-
-      if (result.length) {
-        this.isAuth = true;
-
-        callbackOk();
-      }
-    } catch (error) {
-      callbackError();
-    }
-  }
-
   setActiveItemNavbar(activeItemNavbar: string) {
     this.activeItemNavbar = activeItemNavbar;
-  }
-
-  setToken() {
-    this.token = true;
   }
 }

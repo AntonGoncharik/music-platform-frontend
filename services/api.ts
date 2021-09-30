@@ -7,23 +7,6 @@ const axiosInstance = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  const token = globalThis.localStorage.getItem('token');
-  // const refreshToken = globalThis.localStorage.getItem('refreshToken');
-
-  config.headers.Authorization = `jwt ${token}`;
-
-  if (config.url && config.url.includes('auth')) {
-    delete config.headers.Authorization;
-  }
-
-  // if (config.url === '/auth/refresh') {
-  //   config.headers.Authorization = `jwt ${token} ${refreshToken}`;
-  // }
-
-  return config;
-});
-
 // axiosInstance.interceptors.response.use(
 //   (response) => response,
 //   async (error) => {

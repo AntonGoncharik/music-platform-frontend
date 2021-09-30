@@ -12,6 +12,8 @@
     "@ant-design/icons": "^4.6.4",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
+    "cookie-cutter": "^0.2.0",
+    "cookies": "^0.8.0",
     "mobx": "^6.3.3",
     "mobx-react": "^7.2.0",
     "mobx-react-lite": "^3.2.1",
@@ -22,6 +24,7 @@
     "sass": "^1.38.1"
   },
   "devDependencies": {
+    "@types/cookies": "^0.7.7",
     "@types/react": "17.0.19",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",

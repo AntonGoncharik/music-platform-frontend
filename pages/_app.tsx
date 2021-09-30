@@ -2,13 +2,13 @@ import NextNprogress from 'nextjs-progressbar';
 import React from 'react';
 import App from 'next/app';
 import { Provider } from 'mobx-react';
+import Router from 'next/router';
 
 import 'antd/dist/antd.css';
 import '../styles/globals.scss';
 import { colors } from '../styles/colors';
 import { Loader } from '../ui-kit';
-import { initializeStore, getStore } from '../store';
-import { Autosignin } from '../components';
+import { initializeStore } from '../store';
 
 class RootApp extends App {
   store: any;
@@ -32,13 +32,19 @@ class RootApp extends App {
   }
 
   async componentDidMount() {
-    await this.store.userStore.autosignin(
-      () => {
-        this.store.userStore.setToken();
-        this.setState({ authLoading: false });
-      },
-      () => {},
-    );
+    if (Router.pathname === '/auth') {
+      this.setState({ authLoading: false });
+    } else {
+      await this.store.userStore.autosignin(
+        () => {
+          this.setState({ authLoading: false });
+        },
+        () => {
+          Router.push('/auth');
+          this.setState({ authLoading: false });
+        },
+      );
+    }
   }
 
   render() {

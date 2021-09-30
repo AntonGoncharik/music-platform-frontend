@@ -2,8 +2,9 @@ import React from 'react';
 
 import View from './view';
 // import { getStore } from '../../store/provider';
+import { ITracks } from './interfaces';
 
-const Container: React.FC = () => {
+const Container: React.FC<ITracks> = (props) => {
   // const store = getStore();
 
   const tracks = [
@@ -41,7 +42,7 @@ const Container: React.FC = () => {
     { name: '555', time: '03:08', active: false },
   ];
 
-  return <View tracks={tracks} />;
+  return <View tracks={props.tracks} />;
 };
 
 export default Container;

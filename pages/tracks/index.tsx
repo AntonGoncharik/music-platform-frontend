@@ -1,26 +1,35 @@
 import React from 'react';
 import Router from 'next/router';
+import Cookies from 'cookies';
 
 import { Tracks } from '../../screens';
 import { TrackService } from '../../services';
 
-const Container: React.FC = () => {
-  return <Tracks />;
+const Container: React.FC = (props: any) => {
+  return <Tracks tracks={props.tracks} />;
 };
 
-Container.getInitialProps = async (context) => {
-  if (!context.store.userStore.isAuth) {
-    typeof window !== 'undefined'
-      ? Router.push('/auth')
-      : context.res.writeHead(301, { Location: '/auth' }).end();
+Container.getInitialProps = async (context: any) => {
+  const cookies = new Cookies(context.req, context.res);
+  const token = cookies.get('token') as string;
 
-    return {};
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
+      },
+    };
   }
 
-  console.log('context.store.userStore', context.store.userStore.token);
-  // const result = await TrackService.getTracks();
+  const result = await TrackService.getTracks({
+    headers: {
+      Authorization: `jwt ${token}`,
+    },
+    params: {},
+  });
 
-  return {};
+  return { tracks: [] };
 };
 
 export default Container;

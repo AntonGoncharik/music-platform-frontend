@@ -40,7 +40,7 @@ const View: React.FC<IPlayer> = (props) => {
 
   const setAudio = () => {
     if (store.playerStore.track) {
-      audio.src = `${BASE_URL}/tracks/374518d1-68b2-483b-803f-f985a7707338.mp3`;
+      // audio.src = `${BASE_URL}/tracks/374518d1-68b2-483b-803f-f985a7707338.mp3`;
       // audio.src = `${BASE_URL}/{store.playerStore.track}`;
       audio.volume = 1;
       audio.onloadedmetadata = () => {

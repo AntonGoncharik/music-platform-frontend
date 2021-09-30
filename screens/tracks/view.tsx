@@ -5,16 +5,7 @@ import { MainLayout } from '../../layouts';
 import { Track } from '../../components';
 import s from './styles.module.scss';
 import { tabsItems } from '../../constants';
-
-interface ITrack {
-  active: boolean;
-  name: string;
-  time: string;
-}
-
-interface ITracks {
-  tracks: ITrack[];
-}
+import { ITracks } from './interfaces';
 
 const View: React.FC<ITracks> = (props) => {
   return (
@@ -27,13 +18,13 @@ const View: React.FC<ITracks> = (props) => {
           }}
         >
           <div className={s.tracks}>
-            {props.tracks.map((item) => {
+            {/* {props.tracks.map((item) => {
               return (
                 <div key={item.name} className={s.track}>
                   <Track {...item} />
                 </div>
               );
-            })}
+            })} */}
           </div>
         </Tabs>
       </div>
