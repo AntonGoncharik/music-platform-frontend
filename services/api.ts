@@ -20,15 +20,19 @@ axiosInstance.interceptors.response.use(
 );
 
 export const apiPost = (path: string, body: any, params: any = {}) => {
-  return axiosInstance.post(path, JSON.stringify(body), { params });
+  return axiosInstance.post(path, JSON.stringify(body), params);
 };
 
 export const apiGet = (path: string, params?: any) => {
   return axiosInstance.get(path, params);
 };
 
-export const apiPatch = (path: string, body: any) => {
-  return axiosInstance.patch(path, JSON.stringify(body));
+export const apiPatch = (path: string, body: any, params: any = {}) => {
+  if (params?.headers?.contentType) {
+    return axiosInstance.patch(path, body, params);
+  }
+
+  return axiosInstance.patch(path, JSON.stringify(body), params);
 };
 
 export const apiDelete = (path: string, data: any) => {

@@ -6,7 +6,15 @@ import { UsersService } from '../../services';
 import { IUser } from '../../interfaces';
 
 const Container: React.FC<IUser> = (props) => {
-  return <Profile firstName={props.firstName} lastName={props.lastName} email={props.email} />;
+  return (
+    <Profile
+      id={props.id}
+      firstName={props.firstName}
+      lastName={props.lastName}
+      email={props.email}
+      avatarPath={props.avatarPath}
+    />
+  );
 };
 
 export default Container;
@@ -36,9 +44,11 @@ export async function getServerSideProps(context: any) {
 
     return {
       props: {
+        id: result[0].id,
         firstName: result[0].firstName ?? '',
         lastName: result[0].lastName ?? '',
         email: result[0].email ?? '',
+        avatarPath: result[0].avatarPath,
       },
     };
   } catch (error) {

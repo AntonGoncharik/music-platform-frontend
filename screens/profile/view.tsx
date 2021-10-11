@@ -3,14 +3,17 @@ import React from 'react';
 import { MainLayout } from '../../layouts';
 import { Input, Button, Text, Title, UploadImage } from '../../ui-kit';
 import s from './styles.module.scss';
+import { BASE_URL } from '../../constants';
 
 interface IProfile {
   email: string;
   firstName: string;
   lastName: string;
+  avatarPath?: string;
   setFirstName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setLastName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   save: () => void;
+  setImg: (img: any) => void;
   removeImage: () => void;
 }
 
@@ -20,7 +23,10 @@ const View: React.FC<IProfile> = (props) => {
       <div className={s.container}>
         <div className={s.body}>
           <div className={s.left}>
-            <UploadImage />
+            <UploadImage
+              imageUrl={props.avatarPath ? `${BASE_URL}/${props.avatarPath}` : undefined}
+              callbackOK={props.setImg}
+            />
             <div className={s.buttonRemoveImage}>
               <Button onClick={props.removeImage}>
                 <Text>Remove image</Text>

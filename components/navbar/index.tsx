@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Router from 'next/router';
 import { observer } from 'mobx-react-lite';
 
@@ -9,7 +9,14 @@ import { getStore } from '../../store';
 
 const View: React.FC = observer(() => {
   const store = getStore();
+
   const activeItemNavbar = store.userStore.activeItemNavbar;
+
+  useEffect(() => {
+    if (Router.pathname === '/profile') {
+      store.userStore.setActiveItemNavbar('profile');
+    }
+  }, []);
 
   return (
     <div>

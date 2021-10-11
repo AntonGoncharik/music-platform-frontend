@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import { Upload, Modal } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Upload } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import s from './styles.module.scss';
 
 interface IAvatar {
-  // src: string;
+  imageUrl?: string;
+  callbackOK?: (img: any) => void;
 }
 
 const View: React.FC<IAvatar> = (props) => {
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState(props.imageUrl);
+
+  useEffect(() => {
+    setImageUrl(props.imageUrl);
+  }, [props.imageUrl]);
 
   const getBase64 = (img: any, callback: any) => {
     const reader = new FileReader();
@@ -26,6 +31,8 @@ const View: React.FC<IAvatar> = (props) => {
       getBase64(info.file.originFileObj, (imageUrl: string) => {
         setImageUrl(imageUrl);
         setLoading(false);
+        //@ts-ignore
+        props.callbackOK(info.file.originFileObj);
       });
     }
   };

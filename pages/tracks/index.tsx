@@ -8,7 +8,9 @@ const Container: React.FC = (props: any) => {
   return <Tracks tracks={props.tracks} />;
 };
 
-Container.getInitialProps = async (context: any) => {
+export default Container;
+
+export async function getServerSideProps(context: any) {
   let token = null;
   try {
     const cookies = new Cookies(context.req, context.res);
@@ -29,11 +31,19 @@ Container.getInitialProps = async (context: any) => {
       headers: {
         Authorization: `jwt ${token}`,
       },
-      params: {},
     });
-  } catch (error) {}
 
-  return { tracks: [] };
-};
-
-export default Container;
+    return {
+      props: {
+        tracks: result,
+      },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false,
+      },
+    };
+  }
+}

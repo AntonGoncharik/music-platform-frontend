@@ -3,7 +3,7 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 interface IAvatar {
-  src: string;
+  src?: string;
 }
 
 const View: React.FC<IAvatar> = (props) => {

@@ -75,4 +75,8 @@ export class UserStore {
   setActiveItemNavbar(activeItemNavbar: string) {
     this.activeItemNavbar = activeItemNavbar;
   }
+
+  setAvatarPath(avatarPath: string) {
+    this.avatarPath = avatarPath;
+  }
 }
