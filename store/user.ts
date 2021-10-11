@@ -10,7 +10,7 @@ export class UserStore {
     makeAutoObservable(this);
   }
 
-  async signin(body: IAuth, callbackOk: () => void, callbackError: () => void) {
+  async signin(body: IAuth, callbackOk: () => void, callbackError: (error: any) => void) {
     try {
       const result = await AuthService.signin(body);
 
@@ -19,7 +19,7 @@ export class UserStore {
 
       callbackOk();
     } catch (error) {
-      callbackError();
+      callbackError(error);
     }
   }
 

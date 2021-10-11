@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import View from './view';
 import { useInput } from '../../hooks';
 import { getStore } from '../../store';
+import { Notification } from '../../ui-kit';
 
 const Container: React.FC = (props: any) => {
   const [page, setPage] = useState(0);
@@ -18,7 +19,7 @@ const Container: React.FC = (props: any) => {
     store.userStore.signin(
       { email, password },
       () => router.push('/tracks'),
-      () => {},
+      (error: any) => Notification.error(error.message),
     );
   };
 

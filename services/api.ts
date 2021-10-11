@@ -14,6 +14,8 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && globalThis.localStorage) {
       Router.replace('/auth');
     }
+
+    throw error.response.data;
   },
 );
 
