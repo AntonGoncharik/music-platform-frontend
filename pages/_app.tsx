@@ -32,18 +32,27 @@ class RootApp extends App {
   }
 
   async componentDidMount() {
-    if (Router.pathname === '/auth') {
-      this.setState({ authLoading: false });
-    } else {
-      await this.store.userStore.autosignin(
-        () => {
-          this.setState({ authLoading: false });
-        },
-        () => {
-          Router.push('/auth');
-          this.setState({ authLoading: false });
-        },
-      );
+    try {
+      if (Router.pathname === '/auth') {
+        this.setState({ authLoading: false });
+      } else {
+        await this.store.userStore.autosignin(
+          () => {
+            this.setState({ authLoading: false });
+          },
+          () => {
+            Router.push('/auth');
+            setTimeout(() => {
+              this.setState({ authLoading: false });
+            }, 1000);
+          },
+        );
+      }
+    } catch (error) {
+      Router.push('/auth');
+      setTimeout(() => {
+        this.setState({ authLoading: false });
+      }, 1000);
     }
   }
 

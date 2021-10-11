@@ -7,7 +7,7 @@ interface IHead {
 const HeadApp: React.FC<IHead> = (props) => {
   return (
     <Head>
-      <title>'Music'</title>
+      <title>Music</title>
       <meta name="description" content={`Music. + ${props.description}`} />
       <meta name="robots" content="index, follow" />
       <meta name="keywords" content="Music, tracks, artists" />

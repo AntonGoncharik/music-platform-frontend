@@ -1,4 +1,6 @@
-import { apiPost } from '../api';
+import cookieCutter from 'cookie-cutter';
+
+import { apiPost, apiGet } from '../api';
 import { IAuth } from '../../interfaces';
 
 export class AuthService {
@@ -18,5 +20,32 @@ export class AuthService {
     } catch (error) {
       throw error;
     }
+  }
+
+  static async refreshToken(body: any) {
+    try {
+      const result = await apiGet('auth/refresh', body);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static setTokens(token: string, refreshToken: string) {
+    globalThis.localStorage.setItem('token', token);
+    globalThis.localStorage.setItem('refreshToken', refreshToken);
+  }
+
+  static removeTokens() {
+    globalThis.localStorage.removeItem('token');
+    globalThis.localStorage.removeItem('refreshToken');
+  }
+
+  static setCookie(token: string) {
+    cookieCutter.set('token', token);
+  }
+
+  static removeCookie() {
+    cookieCutter.set('token', '');
   }
 }

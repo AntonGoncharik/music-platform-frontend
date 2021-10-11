@@ -1,11 +1,9 @@
 import { makeAutoObservable } from 'mobx';
-import cookieCutter from 'cookie-cutter';
 
 import { AuthService, UsersService } from '../services';
 import { IAuth } from '../interfaces';
 
 export class UserStore {
-  isAuth: boolean = true;
   activeItemNavbar: string = 'tracks';
 
   constructor() {
@@ -16,12 +14,8 @@ export class UserStore {
     try {
       const result = await AuthService.signin(body);
 
-      cookieCutter.set('token', result.tokens.token);
-
-      globalThis.localStorage.setItem('token', result.tokens.token);
-      globalThis.localStorage.setItem('refreshToken', result.tokens.refreshToken);
-
-      this.isAuth = true;
+      AuthService.setTokens(result.tokens.token, result.tokens.refreshToken);
+      AuthService.setCookie(result.tokens.token);
 
       callbackOk();
     } catch (error) {
@@ -31,23 +25,23 @@ export class UserStore {
 
   async autosignin(callbackOk: () => void, callbackError: () => void) {
     try {
-      const token = localStorage.getItem('token');
+      const token = globalThis.localStorage.getItem('token');
 
-      const result = await UsersService.getUserByToken({
-        headers: {
-          Authorization: `jwt ${token}`,
-        },
-      });
+      if (token) {
+        const result = await UsersService.getUserByToken({
+          headers: {
+            Authorization: `jwt ${token}`,
+          },
+        });
 
-      if (result.length) {
-        this.isAuth = true;
-
-        callbackOk();
+        if (result.length) {
+          callbackOk();
+        }
       } else {
         callbackError();
       }
     } catch (error) {
-      callbackError();
+      throw error;
     }
   }
 
@@ -55,22 +49,13 @@ export class UserStore {
     try {
       const result = await AuthService.signup(body);
 
-      cookieCutter.set('token', result.tokens.token);
-
-      globalThis.localStorage.setItem('token', result.tokens.token);
-      globalThis.localStorage.setItem('refreshToken', result.tokens.refreshToken);
+      AuthService.setTokens(result.tokens.token, result.tokens.refreshToken);
+      AuthService.setCookie(result.tokens.token);
 
       callbackOk();
     } catch (error) {
       callbackError();
     }
-  }
-
-  logout() {
-    globalThis.localStorage.removeItem('token');
-    globalThis.localStorage.removeItem('refreshToken');
-
-    this.isAuth = false;
   }
 
   setActiveItemNavbar(activeItemNavbar: string) {

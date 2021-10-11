@@ -1,5 +1,5 @@
 import { apiGet } from '../api';
-import { IAuth, IUser } from '../../interfaces';
+import { IUser } from '../../interfaces';
 
 export class UsersService {
   static async getUserByToken(params: {

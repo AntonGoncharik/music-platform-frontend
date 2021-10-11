@@ -34,7 +34,7 @@ const View: React.FC<IPlayer> = (props) => {
       setAudio();
     } else {
       setAudio();
-      play();
+      // play();
     }
   }, [store.playerStore.track]);
 

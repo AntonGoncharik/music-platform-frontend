@@ -10,8 +10,11 @@ const Container: React.FC = (props: any) => {
 };
 
 Container.getInitialProps = async (context: any) => {
-  const cookies = new Cookies(context.req, context.res);
-  const token = cookies.get('token') as string;
+  let token = null;
+  try {
+    const cookies = new Cookies(context.req, context.res);
+    token = cookies.get('token') as string;
+  } catch (error) {}
 
   if (!token) {
     return {
@@ -22,12 +25,14 @@ Container.getInitialProps = async (context: any) => {
     };
   }
 
-  const result = await TrackService.getTracks({
-    headers: {
-      Authorization: `jwt ${token}`,
-    },
-    params: {},
-  });
+  try {
+    const result = await TrackService.getTracks({
+      headers: {
+        Authorization: `jwt ${token}`,
+      },
+      params: {},
+    });
+  } catch (error) {}
 
   return { tracks: [] };
 };
