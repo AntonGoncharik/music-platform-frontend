@@ -3,8 +3,9 @@ import { observer } from 'mobx-react-lite';
 
 import View from './view';
 import { useInput } from '../../hooks';
+import { IUser } from '../../interfaces';
 
-const Container: React.FC = observer(() => {
+const Container: React.FC<IUser> = observer((props) => {
   const [firstName, setFirstName] = useInput('');
   const [lastName, setLastName] = useInput('');
 
@@ -14,7 +15,7 @@ const Container: React.FC = observer(() => {
 
   return (
     <View
-      email="aswfasfasfasf"
+      email={props.email ?? ''}
       firstName={firstName}
       lastName={lastName}
       setFirstName={setFirstName}

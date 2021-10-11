@@ -11,7 +11,6 @@ const View: React.FC = () => {
 
   const goToUrl = (url: string) => {
     if (url === 'logout') {
-      store.userStore.logout();
       Router.replace('/auth');
       return;
     }
@@ -23,13 +22,9 @@ const View: React.FC = () => {
   return (
     <div className={s.container}>
       <div className={s.avatar}>
-        <Avatar
-          src={
-            'https://steamuserimages-a.akamaihd.net/ugc/940586530515504757/CDDE77CB810474E1C07B945E40AE4713141AFD76/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
-          }
-        />
+        <Avatar src={store.userStore.avatarPath} />
       </div>
-      <Dropdown name={'ant.goncharik@gmail.com'} list={menuItems} goToUrl={goToUrl} />
+      <Dropdown name={store.userStore.email} list={menuItems} goToUrl={goToUrl} />
     </div>
   );
 };

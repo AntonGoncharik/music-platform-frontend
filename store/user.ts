@@ -5,6 +5,10 @@ import { IAuth } from '../interfaces';
 
 export class UserStore {
   activeItemNavbar: string = 'tracks';
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
+  avatarPath: string = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -13,6 +17,11 @@ export class UserStore {
   async signin(body: IAuth, callbackOk: () => void, callbackError: (error: any) => void) {
     try {
       const result = await AuthService.signin(body);
+
+      this.firstName = result.user.firstName;
+      this.lastName = result.user.lastName;
+      this.email = result.user.email;
+      this.avatarPath = result.user.avatarPath;
 
       AuthService.setTokens(result.tokens.token, result.tokens.refreshToken);
       AuthService.setCookie(result.tokens.token);
@@ -35,6 +44,11 @@ export class UserStore {
         });
 
         if (result.length) {
+          this.firstName = result[0].firstName as string;
+          this.lastName = result[0].lastName as string;
+          this.email = result[0].email as string;
+          this.avatarPath = result[0].avatarPath as string;
+
           callbackOk();
         }
       } else {

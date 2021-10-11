@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from 'next/router';
 import Cookies from 'cookies';
 
 import { Tracks } from '../../screens';
