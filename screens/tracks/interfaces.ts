@@ -6,4 +6,5 @@ interface ITrack {
 
 export interface ITracks {
   tracks: ITrack[];
+  userTracks: ITrack[];
 }

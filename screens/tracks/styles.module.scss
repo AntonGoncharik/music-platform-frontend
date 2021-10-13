@@ -5,10 +5,17 @@
 }
 
 .tracks {
+  min-height: calc(100vh - 17rem);
   background-color: $gray;
   padding-right: 1rem;
   padding-left: 1rem;
   padding-bottom: 5rem;
+
+  &.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .track {

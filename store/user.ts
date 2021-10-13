@@ -5,6 +5,7 @@ import { IAuth } from '../interfaces';
 
 export class UserStore {
   activeItemNavbar: string = 'tracks';
+  userId: string = '';
   firstName: string = '';
   lastName: string = '';
   email: string = '';
@@ -18,6 +19,7 @@ export class UserStore {
     try {
       const result = await AuthService.signin(body);
 
+      this.userId = result.user.id;
       this.firstName = result.user.firstName;
       this.lastName = result.user.lastName;
       this.email = result.user.email;
@@ -44,6 +46,7 @@ export class UserStore {
         });
 
         if (result.length) {
+          this.userId = result[0].id as string;
           this.firstName = result[0].firstName as string;
           this.lastName = result[0].lastName as string;
           this.email = result[0].email as string;

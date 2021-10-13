@@ -28,6 +28,10 @@ a {
   min-height: 100vh;
   margin: 0 auto;
   padding-top: 3rem;
+
+  .ant-typography {
+    margin: 0;
+  }
 }
 
 .sticky-header-navbar {

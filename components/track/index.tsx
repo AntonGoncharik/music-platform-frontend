@@ -10,6 +10,7 @@ import { Button, Text, Title } from '../../ui-kit';
 import s from './styles.module.scss';
 
 interface ITrack {
+  id: string;
   active: boolean;
   name: string;
   time: string;

@@ -5,7 +5,7 @@ import { Tracks } from '../../screens';
 import { TrackService } from '../../services';
 
 const Container: React.FC = (props: any) => {
-  return <Tracks tracks={props.tracks} />;
+  return <Tracks tracks={props.tracks} userTracks={props.userTracks} />;
 };
 
 export default Container;
@@ -32,10 +32,19 @@ export async function getServerSideProps(context: any) {
         Authorization: `jwt ${token}`,
       },
     });
+    const resultUserTracks = await TrackService.getTracks({
+      headers: {
+        Authorization: `jwt ${token}`,
+      },
+      params: {
+        userTracks: 1,
+      },
+    });
 
     return {
       props: {
         tracks: result,
+        userTracks: resultUserTracks,
       },
     };
   } catch (error) {
