@@ -52,6 +52,12 @@
   position: absolute;
   background-color: $yellow;
   height: 100%;
+
+  &.active {
+    transition-property: width;
+    transition-timing-function: linear;
+    transition-duration: 1s;
+  }
 }
 
 .current {
@@ -72,4 +78,17 @@
 
 .button {
   margin-right: 1rem;
+
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.volume {
+  position: absolute;
+  bottom: 4rem;
+  height: 5rem;
+  background-color: $gray_dark;
+  padding-bottom: 1rem;
+  border-radius: 1rem;
 }

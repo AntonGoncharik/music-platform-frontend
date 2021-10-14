@@ -15,7 +15,7 @@ const MainLayout: React.FC<IMainLayout> = (props) => {
         <Navbar />
       </div>
       {props.children}
-      <Player active={false} name="gfhjk" />
+      <Player />
     </div>
   );
 };

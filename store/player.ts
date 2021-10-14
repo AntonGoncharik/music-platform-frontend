@@ -1,15 +1,17 @@
 import { makeAutoObservable } from 'mobx';
 
 export class PlayerStore {
-  track: string = 'tracks';
+  track: string = '';
+  trackName: string = '';
   active: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setTrack(track: string) {
+  setTrack(track: string, trackName: string) {
     this.track = track;
+    this.trackName = trackName;
   }
 
   playTrack() {

@@ -5,6 +5,7 @@ import { Tracks } from '../../screens';
 import { TrackService } from '../../services';
 
 const Container: React.FC = (props: any) => {
+  // @ts-ignore
   return <Tracks tracks={props.tracks} userTracks={props.userTracks} />;
 };
 
@@ -43,8 +44,12 @@ export async function getServerSideProps(context: any) {
 
     return {
       props: {
-        tracks: result,
-        userTracks: resultUserTracks,
+        tracks: result.map((item: any) => {
+          return { ...item, active: false };
+        }),
+        userTracks: resultUserTracks.map((item: any) => {
+          return { ...item, active: false };
+        }),
       },
     };
   } catch (error) {

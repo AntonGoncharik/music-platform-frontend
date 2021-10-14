@@ -14,6 +14,8 @@ interface ITrack {
   active: boolean;
   name: string;
   time: string;
+  playTrack: () => void;
+  pauseTrack: () => void;
 }
 
 const View: React.FC<ITrack> = (props) => {
@@ -23,13 +25,13 @@ const View: React.FC<ITrack> = (props) => {
         <div>
           {props.active ? (
             <Button
-              onClick={() => {}}
+              onClick={props.pauseTrack}
               icon={<PauseCircleOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           ) : (
             <Button
-              onClick={() => {}}
+              onClick={props.playTrack}
               icon={<PlayCircleOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
