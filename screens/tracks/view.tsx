@@ -7,7 +7,7 @@ import s from './styles.module.scss';
 import { tabsItems } from '../../constants';
 import { ITracks } from './interfaces';
 
-const View: React.FC<ITracks> = (props) => {
+const View: React.FC<Omit<ITracks, 'userTracks'>> = (props) => {
   const classNameTracks = () => {
     if (props.tracks.length) {
       return s.tracks;

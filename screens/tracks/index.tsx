@@ -10,7 +10,7 @@ import { Notification } from '../../ui-kit';
 const Container: React.FC<ITracks> = observer((props) => {
   const [activeTab, setActiveTab] = useState('All');
   const [tracks, setTracks] = useState(props.tracks);
-  const [userTracks, setUserTracks] = useState(props.userTracks);
+  const [userTracks, setUserTracks] = useState(props.userTracks ?? []);
   const [page, setPage] = useState(2);
   const [hasMoreTracks, setHasMoreTracks] = useState(true);
 
@@ -74,6 +74,15 @@ const Container: React.FC<ITracks> = observer((props) => {
     try {
       const token = globalThis.localStorage.getItem('token');
 
+      const resultTracks = await TrackService.getTracks({
+        headers: {
+          Authorization: `jwt ${token}`,
+        },
+        params: {
+          page,
+        },
+      });
+
       const resultUserTracks = await TrackService.getTracks({
         headers: {
           Authorization: `jwt ${token}`,
@@ -84,7 +93,7 @@ const Container: React.FC<ITracks> = observer((props) => {
         },
       });
 
-      if (!resultUserTracks.length) {
+      if (!resultTracks.length && !resultUserTracks.length) {
         setHasMoreTracks(false);
         return;
       }
@@ -93,6 +102,12 @@ const Container: React.FC<ITracks> = observer((props) => {
 
       setTracks([
         ...tracks,
+        ...resultTracks.map((item: any) => {
+          return { ...item, active: false };
+        }),
+      ]);
+      setUserTracks([
+        ...userTracks,
         ...resultUserTracks.map((item: any) => {
           return { ...item, active: false };
         }),
