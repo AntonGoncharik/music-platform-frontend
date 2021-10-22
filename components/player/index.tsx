@@ -15,6 +15,7 @@ import s from './styles.module.scss';
 import { BASE_URL } from '../../constants';
 import { getStore } from '../../store';
 import { getFormatTrackTime } from '../../utils';
+import { useOutsideClick } from '../../utils/hooks';
 
 let audio: HTMLAudioElement;
 
@@ -24,6 +25,7 @@ const View: React.FC = observer((props) => {
 
   const containerProgressbar = useRef(null);
   const progressbar = useRef(null);
+  const volumeComponent = useRef(null);
 
   const store = getStore();
 
@@ -89,6 +91,8 @@ const View: React.FC = observer((props) => {
       changeProressBar(percentProgress);
     }
   }, [store.playerStore.currentTimeTrack]);
+
+  useOutsideClick(volumeComponent, () => setShowVolume(false));
 
   const classNameProrgessbar = () => {
     if (isStartRewind) {
@@ -202,7 +206,7 @@ const View: React.FC = observer((props) => {
           <Title>{store.playerStore.trackName}</Title>
         </div>
         <div className={s.right}>
-          <div className={s.sound}>
+          <div className={s.sound} ref={volumeComponent}>
             <div className={s.button}>
               <Button
                 onClick={() => setShowVolume(!showVolume)}
