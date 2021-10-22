@@ -12,4 +12,7 @@ export interface ITracks {
   playTrack: (path: string, name: string) => void;
   pauseTrack: (path: string) => void;
   changeTab: (tab: string) => void;
+  page: number;
+  hasMoreTracks: boolean;
+  getMoreTracks: () => void;
 }

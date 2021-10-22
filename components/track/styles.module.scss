@@ -31,3 +31,34 @@
   align-items: center;
   margin-right: 1rem;
 }
+
+.btn_play_pause {
+  -webkit-animation-name: scaling;
+  animation-name: scaling;
+  -webkit-animation-duration: 0.6s;
+  animation-duration: 0.6s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes scaling {
+  0%,
+  100% {
+    transform: scale(0.66);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scaling {
+  0%,
+  100% {
+    transform: scale(0.66);
+  }
+  50% {
+    transform: scale(1);
+  }
+}

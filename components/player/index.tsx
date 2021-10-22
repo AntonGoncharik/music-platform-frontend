@@ -19,11 +19,7 @@ import { getFormatTrackTime } from '../../utils';
 let audio: HTMLAudioElement;
 
 const View: React.FC = observer((props) => {
-  const [duration, setDuration] = useState<number>(0);
-  const [currentTimeTrack, setCurrentTimeTrack] = useState<number>(0);
-  const [currentTime, setCurrentTime] = useState<number>(0);
   const [showVolume, setShowVolume] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(100);
   const [isStartRewind, setIsStartRewind] = useState<boolean>(false);
 
   const containerProgressbar = useRef(null);
@@ -33,19 +29,18 @@ const View: React.FC = observer((props) => {
 
   useEffect(() => {
     const mouseDown = (e: MouseEvent) => {
-      setIsStartRewind(true);
-      const percentProgress = getPercentage(e.clientX, containerProgressbar.current.clientWidth);
-      changeProressBar(percentProgress);
-      document.body.classList.add('none__select');
+      if (store.playerStore.track) {
+        setIsStartRewind(true);
+        const percentProgress = getPercentage(e.clientX, containerProgressbar.current.clientWidth);
+        changeProressBar(percentProgress);
+        document.body.classList.add('none__select');
+      }
     };
 
     const mouseUp = (e: MouseEvent) => {
       if (isStartRewind) {
         setIsStartRewind(false);
-        setCurrentTime((prevState) => {
-          rewindTrack(prevState);
-          return prevState;
-        });
+        rewindTrack(store.playerStore.currentTime);
         document.body.classList.remove('none__select');
       }
     };
@@ -62,11 +57,13 @@ const View: React.FC = observer((props) => {
     document.addEventListener('mousemove', mouseMove);
 
     return () => {
-      containerProgressbar.current.removeEventListener('mousedown', mouseDown);
+      if (containerProgressbar.current) {
+        containerProgressbar.current.removeEventListener('mousedown', mouseDown);
+      }
       document.removeEventListener('mouseup', mouseUp);
       document.removeEventListener('mousemove', mouseMove);
     };
-  }, [isStartRewind]);
+  }, [isStartRewind, store.playerStore.currentTime]);
 
   useEffect(() => {
     if (audio) {
@@ -84,11 +81,14 @@ const View: React.FC = observer((props) => {
   }, [store.playerStore.active]);
 
   useEffect(() => {
-    if (duration && !isStartRewind) {
-      const percentProgress = getPercentage(currentTimeTrack, duration);
+    if (store.playerStore.duration && !isStartRewind) {
+      const percentProgress = getPercentage(
+        store.playerStore.currentTimeTrack,
+        store.playerStore.duration,
+      );
       changeProressBar(percentProgress);
     }
-  }, [currentTimeTrack]);
+  }, [store.playerStore.currentTimeTrack]);
 
   const classNameProrgessbar = () => {
     if (isStartRewind) {
@@ -104,20 +104,24 @@ const View: React.FC = observer((props) => {
 
   const changeProressBar = (percentProgress: number) => {
     progressbar.current.style.width = `${percentProgress}%`;
-    setCurrentTime((duration * percentProgress) / 100);
+    store.playerStore.setCurrentTime((store.playerStore.duration * percentProgress) / 100);
   };
 
   const setAudio = () => {
-    if (store.playerStore.track) {
+    if (
+      store.playerStore.track &&
+      store.playerStore.track.split('tracks/')[1] !== audio.src.split('tracks/')[1]
+    ) {
       audio.src = `${BASE_URL}/${store.playerStore.track}`;
       audio.volume = 1;
-      audio.onloadedmetadata = () => {
-        setDuration(Math.ceil(audio.duration));
-      };
-      audio.ontimeupdate = () => {
-        setCurrentTimeTrack(Math.ceil(audio.currentTime));
-      };
     }
+
+    audio.onloadedmetadata = () => {
+      store.playerStore.setDuration(Math.ceil(audio.duration));
+    };
+    audio.ontimeupdate = () => {
+      store.playerStore.setCurrentTimeTrack(Math.ceil(audio.currentTime));
+    };
   };
 
   const play = () => {
@@ -142,7 +146,7 @@ const View: React.FC = observer((props) => {
 
   const changeVolume = (value: number) => {
     audio.volume = value / 100;
-    setVolume(value);
+    store.playerStore.setVolume(value);
   };
 
   const rewindTrack = (value: number) => {
@@ -154,10 +158,14 @@ const View: React.FC = observer((props) => {
       <div ref={containerProgressbar} className={s.progressbar}>
         <div ref={progressbar} className={classNameProrgessbar()}></div>
         <div className={s.current}>
-          <Text>{getFormatTrackTime(currentTime)}</Text>
+          <Text>
+            {store.playerStore.track ? getFormatTrackTime(store.playerStore.currentTime) : ''}
+          </Text>
         </div>
         <div className={s.duration}>
-          <Text>{getFormatTrackTime(duration)}</Text>
+          <Text>
+            {store.playerStore.track ? getFormatTrackTime(store.playerStore.duration) : ''}
+          </Text>
         </div>
       </div>
       <div className={s.actions}>
@@ -208,7 +216,7 @@ const View: React.FC = observer((props) => {
                   onChange={(value: number) => {
                     changeVolume(value);
                   }}
-                  value={volume}
+                  value={store.playerStore.volume}
                 />
               </div>
             )}

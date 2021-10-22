@@ -3,10 +3,15 @@ import Cookies from 'cookies';
 
 import { Tracks } from '../../screens';
 import { TrackService } from '../../services';
+import { MainLayout } from '../../layouts';
 
 const Container: React.FC = (props: any) => {
-  // @ts-ignore
-  return <Tracks tracks={props.tracks} userTracks={props.userTracks} />;
+  return (
+    <MainLayout>
+      {/* @ts-ignore */}
+      <Tracks tracks={props.tracks} userTracks={props.userTracks} />
+    </MainLayout>
+  );
 };
 
 export default Container;

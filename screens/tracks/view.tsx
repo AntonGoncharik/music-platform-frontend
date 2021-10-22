@@ -1,7 +1,7 @@
 import React from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Tabs, Title } from '../../ui-kit';
-import { MainLayout } from '../../layouts';
 import { Track } from '../../components';
 import s from './styles.module.scss';
 import { tabsItems } from '../../constants';
@@ -17,10 +17,15 @@ const View: React.FC<ITracks> = (props) => {
   };
 
   return (
-    <MainLayout>
-      <div className={s.container}>
-        <Tabs list={tabsItems} onChange={(value) => props.changeTab(value)}>
-          <div className={classNameTracks()}>
+    <div className={s.container}>
+      <Tabs list={tabsItems} onChange={(value) => props.changeTab(value)}>
+        <div className={classNameTracks()}>
+          <InfiniteScroll
+            dataLength={props.tracks.length}
+            next={props.getMoreTracks}
+            hasMore={props.hasMoreTracks}
+            loader={<h3> Loading...</h3>}
+          >
             {props.tracks.map((item) => {
               return (
                 <div key={item.id} className={s.track}>
@@ -33,10 +38,10 @@ const View: React.FC<ITracks> = (props) => {
               );
             })}
             {!props.tracks.length && <Title>Empty :(</Title>}
-          </div>
-        </Tabs>
-      </div>
-    </MainLayout>
+          </InfiniteScroll>
+        </div>
+      </Tabs>
+    </div>
   );
 };
 

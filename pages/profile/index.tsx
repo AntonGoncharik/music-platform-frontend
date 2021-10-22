@@ -4,16 +4,19 @@ import Cookies from 'cookies';
 import { Profile } from '../../screens';
 import { UsersService } from '../../services';
 import { IUser } from '../../interfaces';
+import { MainLayout } from '../../layouts';
 
 const Container: React.FC<IUser> = (props) => {
   return (
-    <Profile
-      id={props.id}
-      firstName={props.firstName}
-      lastName={props.lastName}
-      email={props.email}
-      avatarPath={props.avatarPath}
-    />
+    <MainLayout>
+      <Profile
+        id={props.id}
+        firstName={props.firstName}
+        lastName={props.lastName}
+        email={props.email}
+        avatarPath={props.avatarPath}
+      />
+    </MainLayout>
   );
 };
 

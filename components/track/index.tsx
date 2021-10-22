@@ -22,7 +22,7 @@ const View: React.FC<ITrack> = (props) => {
   return (
     <div className={s.container}>
       <div className={s.left}>
-        <div>
+        <div className={props.active ? s.btn_play_pause : ''}>
           {props.active ? (
             <Button
               onClick={props.pauseTrack}

@@ -87,8 +87,9 @@
 .volume {
   position: absolute;
   bottom: 4rem;
-  height: 5rem;
+  height: 10rem;
   background-color: $gray_dark;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
+  padding-top: 0.65rem;
   border-radius: 1rem;
 }
