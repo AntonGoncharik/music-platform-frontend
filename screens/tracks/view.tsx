@@ -33,6 +33,8 @@ const View: React.FC<Omit<ITracks, 'userTracks'>> = (props) => {
                     {...item}
                     playTrack={() => props.playTrack(item.path, item.name)}
                     pauseTrack={() => props.pauseTrack(item.path)}
+                    addTrackToMe={() => props.addTrackToMe(item.id)}
+                    downloadTrack={() => props.downloadTrack(item.path, item.name)}
                   />
                 </div>
               );

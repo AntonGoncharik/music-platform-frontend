@@ -117,6 +117,20 @@ const Container: React.FC<ITracks> = observer((props) => {
     }
   };
 
+  const addTrackToMe = async (id: string) => {
+    await TrackService.addTrack(id);
+  };
+
+  const downloadTrack = async (path: string, name: string) => {
+    const trackBlob = await TrackService.downloadTrack(path, { responseType: 'blob' });
+
+    let url = window.URL.createObjectURL(trackBlob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.click();
+  };
+
   return (
     <View
       tracks={tracks}
@@ -126,6 +140,8 @@ const Container: React.FC<ITracks> = observer((props) => {
       page={page}
       hasMoreTracks={hasMoreTracks}
       getMoreTracks={getMoreTracks}
+      addTrackToMe={addTrackToMe}
+      downloadTrack={downloadTrack}
     />
   );
 });

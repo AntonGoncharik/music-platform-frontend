@@ -9,4 +9,15 @@ export class TrackService {
       throw error;
     }
   }
+
+  static async addTrack(id: string) {}
+
+  static async downloadTrack(path: string, params: {} = {}) {
+    try {
+      const result = await apiGet(path, params);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

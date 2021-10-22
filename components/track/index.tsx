@@ -16,6 +16,8 @@ interface ITrack {
   time: string;
   playTrack: () => void;
   pauseTrack: () => void;
+  addTrackToMe: () => void;
+  downloadTrack: () => void;
 }
 
 const View: React.FC<ITrack> = (props) => {
@@ -47,14 +49,14 @@ const View: React.FC<ITrack> = (props) => {
         </div>
         <div>
           <Button
-            onClick={() => {}}
+            onClick={props.addTrackToMe}
             icon={<PlusOutlined style={{ fontSize: '24px' }} />}
             type="text"
           />
         </div>
         <div className={s.buttonDownload}>
           <Button
-            onClick={() => {}}
+            onClick={props.downloadTrack}
             icon={<DownloadOutlined style={{ fontSize: '24px' }} />}
             type="text"
           />
