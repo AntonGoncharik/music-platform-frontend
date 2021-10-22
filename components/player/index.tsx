@@ -195,7 +195,11 @@ const View: React.FC = observer((props) => {
           <div className={s.sound} ref={volumeComponent}>
             <div className={s.button}>
               <Button
-                onClick={() => setShowVolume(!showVolume)}
+                onClick={() => {
+                  if (audio && audio.src) {
+                    setShowVolume(!showVolume);
+                  }
+                }}
                 icon={<SoundOutlined style={{ fontSize: '24px' }} />}
                 type="text"
               />
