@@ -175,13 +175,6 @@ const View: React.FC = observer((props) => {
       <div className={s.actions}>
         <div className={s.left}>
           <div className={s.button}>
-            <Button
-              onClick={() => {}}
-              icon={<BackwardOutlined style={{ fontSize: '24px' }} />}
-              type="text"
-            />
-          </div>
-          <div className={s.button}>
             {store.playerStore.active ? (
               <Button
                 onClick={pauseTrack}
@@ -195,13 +188,6 @@ const View: React.FC = observer((props) => {
                 type="text"
               />
             )}
-          </div>
-          <div className={s.button}>
-            <Button
-              onClick={() => {}}
-              icon={<ForwardOutlined style={{ fontSize: '24px' }} />}
-              type="text"
-            />
           </div>
           <Title>{store.playerStore.trackName}</Title>
         </div>
