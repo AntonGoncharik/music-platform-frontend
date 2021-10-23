@@ -10,12 +10,13 @@ import {
 } from '@ant-design/icons';
 import { observer } from 'mobx-react-lite';
 
-import { Button, Text, Slider, Title } from '../../ui-kit';
+import { Button, Text, Slider, Title, Notification } from '../../ui-kit';
 import s from './styles.module.scss';
 import { BASE_URL } from '../../constants';
 import { getStore } from '../../store';
 import { getFormatTrackTime } from '../../utils';
 import { useOutsideClick } from '../../utils/hooks';
+import { TrackService } from '../../services';
 
 let audio: HTMLAudioElement;
 
@@ -157,6 +158,29 @@ const View: React.FC = observer((props) => {
     audio.currentTime = value;
   };
 
+  const addTrackToUser = async () => {
+    // try {
+    //   const userId = store.userStore.userId;
+    //   await TrackService.addTrackToUser({ userId, id });
+    // } catch (error: any) {
+    //   Notification.error(error.message);
+    // }
+  };
+
+  const downloadTrack = async () => {
+    try {
+      const trackBlob = await TrackService.downloadTrack(path, { responseType: 'blob' });
+
+      let url = window.URL.createObjectURL(trackBlob);
+      let a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      a.click();
+    } catch (error: any) {
+      Notification.error(error.message);
+    }
+  };
+
   return (
     <div className={s.container}>
       <div ref={containerProgressbar} className={s.progressbar}>
@@ -217,14 +241,14 @@ const View: React.FC = observer((props) => {
           </div>
           <div className={s.button}>
             <Button
-              onClick={() => {}}
+              onClick={addTrackToUser}
               icon={<PlusOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />
           </div>
           <div className={s.button}>
             <Button
-              onClick={() => {}}
+              onClick={downloadTrack}
               icon={<DownloadOutlined style={{ fontSize: '24px' }} />}
               type="text"
             />

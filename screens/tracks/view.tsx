@@ -1,7 +1,7 @@
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { Tabs, Title } from '../../ui-kit';
+import { Tabs, Title, Loader } from '../../ui-kit';
 import { Track } from '../../components';
 import s from './styles.module.scss';
 import { tabsItems } from '../../constants';
@@ -24,7 +24,7 @@ const View: React.FC<Omit<ITracks, 'userTracks'>> = (props) => {
             dataLength={props.tracks.length}
             next={props.getMoreTracks}
             hasMore={props.hasMoreTracks}
-            loader={<h3> Loading...</h3>}
+            loader={null}
           >
             {props.tracks.map((item) => {
               return (
@@ -33,12 +33,18 @@ const View: React.FC<Omit<ITracks, 'userTracks'>> = (props) => {
                     {...item}
                     playTrack={() => props.playTrack(item.path, item.name)}
                     pauseTrack={() => props.pauseTrack(item.path)}
-                    addTrackToMe={() => props.addTrackToMe(item.id)}
+                    addTrackToUser={() => props.addTrackToUser(item.id)}
                     downloadTrack={() => props.downloadTrack(item.path, item.name)}
+                    myTrack={props.activeTab === 'My'}
                   />
                 </div>
               );
             })}
+            {props.loading && (
+              <div className={s.loader}>
+                <Loader />
+              </div>
+            )}
             {!props.tracks.length && <Title>Empty :(</Title>}
           </InfiniteScroll>
         </div>

@@ -1,4 +1,4 @@
-import { apiGet } from '../api';
+import { apiGet, apiPost } from '../api';
 
 export class TrackService {
   static async getTracks(params: {} = {}) {
@@ -10,7 +10,19 @@ export class TrackService {
     }
   }
 
-  static async addTrack(id: string) {}
+  static async addTrackToUser(body: { userId: string; id: string }) {
+    try {
+      const token = globalThis.localStorage.getItem('token');
+      const result = await apiPost('tracks/add', body, {
+        headers: {
+          Authorization: `jwt ${token}`,
+        },
+      });
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   static async downloadTrack(path: string, params: {} = {}) {
     try {

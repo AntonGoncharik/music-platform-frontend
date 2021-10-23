@@ -11,14 +11,16 @@ const Container: React.FC<ITracks> = observer((props) => {
   const [activeTab, setActiveTab] = useState('All');
   const [tracks, setTracks] = useState(props.tracks);
   const [userTracks, setUserTracks] = useState(props.userTracks ?? []);
+  const [viewTracks, setViewTracks] = useState(props.tracks);
   const [page, setPage] = useState(2);
   const [hasMoreTracks, setHasMoreTracks] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const store = getStore();
 
   useEffect(() => {
     if (activeTab === 'All') {
-      setTracks(
+      setViewTracks(
         tracks.map((item) => {
           if (item.path === store.playerStore.track) {
             return { ...item, active: store.playerStore.active };
@@ -29,7 +31,7 @@ const Container: React.FC<ITracks> = observer((props) => {
     }
 
     if (activeTab === 'My') {
-      setTracks(
+      setViewTracks(
         // @ts-ignore
         userTracks.map((item) => {
           if (item.path === store.playerStore.track) {
@@ -72,6 +74,8 @@ const Container: React.FC<ITracks> = observer((props) => {
 
   const getMoreTracks = async () => {
     try {
+      setLoading(true);
+
       const token = globalThis.localStorage.getItem('token');
 
       const resultTracks = await TrackService.getTracks({
@@ -112,36 +116,69 @@ const Container: React.FC<ITracks> = observer((props) => {
           return { ...item, active: false };
         }),
       ]);
+
+      if (activeTab === 'All') {
+        setViewTracks([
+          ...tracks,
+          ...resultTracks.map((item: any) => {
+            return { ...item, active: false };
+          }),
+        ]);
+      }
+      if (activeTab === 'My') {
+        setViewTracks([
+          ...userTracks,
+          ...resultUserTracks.map((item: any) => {
+            return { ...item, active: false };
+          }),
+        ]);
+      }
+    } catch (error: any) {
+      Notification.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addTrackToUser = async (id: string) => {
+    try {
+      const userId = store.userStore.userId;
+
+      await TrackService.addTrackToUser({ userId: `${userId}`, id: `${id}` });
+
+      Notification.success('The track has been added ');
     } catch (error: any) {
       Notification.error(error.message);
     }
   };
 
-  const addTrackToMe = async (id: string) => {
-    await TrackService.addTrack(id);
-  };
-
   const downloadTrack = async (path: string, name: string) => {
-    const trackBlob = await TrackService.downloadTrack(path, { responseType: 'blob' });
+    try {
+      const trackBlob = await TrackService.downloadTrack(path, { responseType: 'blob' });
 
-    let url = window.URL.createObjectURL(trackBlob);
-    let a = document.createElement('a');
-    a.href = url;
-    a.download = name;
-    a.click();
+      let url = window.URL.createObjectURL(trackBlob);
+      let a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      a.click();
+    } catch (error: any) {
+      Notification.error(error.message);
+    }
   };
 
   return (
     <View
-      tracks={tracks}
+      tracks={viewTracks}
       playTrack={playTrack}
       pauseTrack={pauseTrack}
       changeTab={changeTab}
       page={page}
       hasMoreTracks={hasMoreTracks}
       getMoreTracks={getMoreTracks}
-      addTrackToMe={addTrackToMe}
+      addTrackToUser={addTrackToUser}
       downloadTrack={downloadTrack}
+      loading={loading}
+      activeTab={activeTab}
     />
   );
 });

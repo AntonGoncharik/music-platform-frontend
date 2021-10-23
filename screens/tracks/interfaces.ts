@@ -15,6 +15,8 @@ export interface ITracks {
   page: number;
   hasMoreTracks: boolean;
   getMoreTracks: () => void;
-  addTrackToMe: (id: string) => void;
+  addTrackToUser: (id: string) => void;
   downloadTrack: (path: string, name: string) => void;
+  loading: boolean;
+  activeTab: string;
 }
