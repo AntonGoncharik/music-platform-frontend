@@ -44,8 +44,8 @@ const Container: React.FC<ITracks> = observer((props) => {
   }, [activeTab]);
 
   useEffect(() => {
-    setTracks(
-      tracks.map((item) => {
+    setViewTracks(
+      viewTracks.map((item) => {
         if (item.path === store.playerStore.track) {
           return { ...item, active: store.playerStore.active };
         }
