@@ -58,9 +58,9 @@ const Container: React.FC<ITracks> = observer((props) => {
     setActiveTab(value);
   };
 
-  const playTrack = (path: string, name: string) => {
+  const playTrack = (path: string, name: string, id: string) => {
     if (store.playerStore.track !== path) {
-      store.playerStore.setTrack(path, name);
+      store.playerStore.setTrack(path, name, id);
     }
     setTimeout(() => {
       store.playerStore.pauseTrack();

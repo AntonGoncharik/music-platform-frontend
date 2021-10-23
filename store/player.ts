@@ -8,14 +8,16 @@ export class PlayerStore {
   currentTimeTrack: number = 0;
   duration: number = 0;
   volume: number = 100;
+  id: string = '';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setTrack(track: string, trackName: string) {
+  setTrack(track: string, trackName: string, id: string) {
     this.track = track;
     this.trackName = trackName;
+    this.id = id;
   }
 
   playTrack() {

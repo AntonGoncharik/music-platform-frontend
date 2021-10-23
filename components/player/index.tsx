@@ -159,22 +159,34 @@ const View: React.FC = observer((props) => {
   };
 
   const addTrackToUser = async () => {
-    // try {
-    //   const userId = store.userStore.userId;
-    //   await TrackService.addTrackToUser({ userId, id });
-    // } catch (error: any) {
-    //   Notification.error(error.message);
-    // }
+    if (!store.userStore.userId || !store.playerStore.id) {
+      return;
+    }
+
+    try {
+      await TrackService.addTrackToUser({
+        userId: `${store.userStore.userId}`,
+        id: `${store.playerStore.id}`,
+      });
+    } catch (error: any) {
+      Notification.error(error.message);
+    }
   };
 
   const downloadTrack = async () => {
+    if (!store.playerStore.track || !store.playerStore.trackName) {
+      return;
+    }
+
     try {
-      const trackBlob = await TrackService.downloadTrack(path, { responseType: 'blob' });
+      const trackBlob = await TrackService.downloadTrack(store.playerStore.track, {
+        responseType: 'blob',
+      });
 
       let url = window.URL.createObjectURL(trackBlob);
       let a = document.createElement('a');
       a.href = url;
-      a.download = name;
+      a.download = store.playerStore.trackName;
       a.click();
     } catch (error: any) {
       Notification.error(error.message);

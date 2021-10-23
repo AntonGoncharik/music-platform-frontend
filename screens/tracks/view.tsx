@@ -31,7 +31,7 @@ const View: React.FC<Omit<ITracks, 'userTracks'>> = (props) => {
                 <div key={item.id} className={s.track}>
                   <Track
                     {...item}
-                    playTrack={() => props.playTrack(item.path, item.name)}
+                    playTrack={() => props.playTrack(item.path, item.name, item.id)}
                     pauseTrack={() => props.pauseTrack(item.path)}
                     addTrackToUser={() => props.addTrackToUser(item.id)}
                     downloadTrack={() => props.downloadTrack(item.path, item.name)}
