@@ -14,6 +14,7 @@ interface IProfile {
   save: () => void;
   setImg: (img: any) => void;
   removeImage: () => void;
+  loading: boolean;
 }
 
 const View: React.FC<IProfile> = (props) => {
@@ -26,7 +27,7 @@ const View: React.FC<IProfile> = (props) => {
             callbackOK={props.setImg}
           />
           <div className={s.buttonRemoveImage}>
-            <Button onClick={props.removeImage}>
+            <Button onClick={props.removeImage} loading={props.loading}>
               <Text>Remove image</Text>
             </Button>
           </div>
@@ -42,7 +43,7 @@ const View: React.FC<IProfile> = (props) => {
         </div>
       </div>
       <div className={s.footer}>
-        <Button onClick={props.save}>
+        <Button onClick={props.save} loading={props.loading}>
           <Text>Save</Text>
         </Button>
       </div>

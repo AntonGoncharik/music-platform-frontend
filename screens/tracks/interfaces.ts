@@ -19,4 +19,5 @@ export interface ITracks {
   downloadTrack: (path: string, name: string) => void;
   loading: boolean;
   activeTab: string;
+  loadingDownloadAndAdd: boolean;
 }

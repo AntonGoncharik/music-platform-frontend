@@ -19,6 +19,7 @@ interface ITrack {
   addTrackToUser: () => void;
   downloadTrack: () => void;
   myTrack: boolean;
+  loading: boolean;
 }
 
 const View: React.FC<ITrack> = (props) => {
@@ -54,6 +55,7 @@ const View: React.FC<ITrack> = (props) => {
               onClick={props.addTrackToUser}
               icon={<PlusOutlined style={{ fontSize: '24px' }} />}
               type="text"
+              loading={props.loading}
             />
           </div>
         )}
@@ -62,6 +64,7 @@ const View: React.FC<ITrack> = (props) => {
             onClick={props.downloadTrack}
             icon={<DownloadOutlined style={{ fontSize: '24px' }} />}
             type="text"
+            loading={props.loading}
           />
         </div>
       </div>

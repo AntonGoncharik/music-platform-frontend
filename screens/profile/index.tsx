@@ -12,6 +12,7 @@ const Container: React.FC<IUser> = observer((props) => {
   const [firstName, setFirstName] = useInput(props.firstName ?? '');
   const [lastName, setLastName] = useInput(props.lastName ?? '');
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const store = getStore();
 
@@ -21,11 +22,13 @@ const Container: React.FC<IUser> = observer((props) => {
 
   const save = async () => {
     try {
-      await UsersService.updateUser({ id: props.id, firstName, lastName });
+      setLoading(true);
+
+      await UsersService.updateUser({ id: `${props.id}`, firstName, lastName });
 
       if (image) {
         const formData = new FormData();
-        formData.append('id', props.id as string);
+        formData.append('id', `${props.id}`);
         formData.append('avatar', image);
 
         await UsersService.updateUser(formData, {
@@ -38,12 +41,16 @@ const Container: React.FC<IUser> = observer((props) => {
       Notification.success('User has been updated');
     } catch (error: any) {
       Notification.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const removeImage = async () => {
     try {
-      await UsersService.updateUser({ id: props.id, avatarPath: '' });
+      setLoading(true);
+
+      await UsersService.updateUser({ id: `${props.id}`, avatarPath: '' });
 
       setImage(null);
       store.userStore.setAvatarPath('');
@@ -51,6 +58,8 @@ const Container: React.FC<IUser> = observer((props) => {
       Notification.success('User has been updated');
     } catch (error: any) {
       Notification.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +74,7 @@ const Container: React.FC<IUser> = observer((props) => {
       save={save}
       setImg={setImg}
       removeImage={removeImage}
+      loading={loading}
     />
   );
 });

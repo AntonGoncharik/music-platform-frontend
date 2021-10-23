@@ -15,6 +15,7 @@ const Container: React.FC<ITracks> = observer((props) => {
   const [page, setPage] = useState(2);
   const [hasMoreTracks, setHasMoreTracks] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [loadingDownloadAndAdd, setLoadingDownloadAndAdd] = useState(false);
 
   const store = getStore();
 
@@ -142,6 +143,8 @@ const Container: React.FC<ITracks> = observer((props) => {
 
   const addTrackToUser = async (id: string) => {
     try {
+      setLoadingDownloadAndAdd(true);
+
       const userId = store.userStore.userId;
 
       await TrackService.addTrackToUser({ userId: `${userId}`, id: `${id}` });
@@ -149,11 +152,15 @@ const Container: React.FC<ITracks> = observer((props) => {
       Notification.success('The track has been added ');
     } catch (error: any) {
       Notification.error(error.message);
+    } finally {
+      setLoadingDownloadAndAdd(false);
     }
   };
 
   const downloadTrack = async (path: string, name: string) => {
     try {
+      setLoadingDownloadAndAdd(true);
+
       const trackBlob = await TrackService.downloadTrack(path, { responseType: 'blob' });
 
       let url = window.URL.createObjectURL(trackBlob);
@@ -163,6 +170,8 @@ const Container: React.FC<ITracks> = observer((props) => {
       a.click();
     } catch (error: any) {
       Notification.error(error.message);
+    } finally {
+      setLoadingDownloadAndAdd(false);
     }
   };
 
@@ -179,6 +188,7 @@ const Container: React.FC<ITracks> = observer((props) => {
       downloadTrack={downloadTrack}
       loading={loading}
       activeTab={activeTab}
+      loadingDownloadAndAdd={loadingDownloadAndAdd}
     />
   );
 });

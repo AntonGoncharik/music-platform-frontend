@@ -23,6 +23,7 @@ let audio: HTMLAudioElement;
 const View: React.FC = observer((props) => {
   const [showVolume, setShowVolume] = useState<boolean>(false);
   const [isStartRewind, setIsStartRewind] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const containerProgressbar = useRef(null);
   const progressbar = useRef(null);
@@ -164,12 +165,16 @@ const View: React.FC = observer((props) => {
     }
 
     try {
+      setLoading(true);
+
       await TrackService.addTrackToUser({
         userId: `${store.userStore.userId}`,
         id: `${store.playerStore.id}`,
       });
     } catch (error: any) {
       Notification.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -179,6 +184,8 @@ const View: React.FC = observer((props) => {
     }
 
     try {
+      setLoading(true);
+
       const trackBlob = await TrackService.downloadTrack(store.playerStore.track, {
         responseType: 'blob',
       });
@@ -190,6 +197,8 @@ const View: React.FC = observer((props) => {
       a.click();
     } catch (error: any) {
       Notification.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -256,6 +265,7 @@ const View: React.FC = observer((props) => {
               onClick={addTrackToUser}
               icon={<PlusOutlined style={{ fontSize: '24px' }} />}
               type="text"
+              loading={loading}
             />
           </div>
           <div className={s.button}>
@@ -263,6 +273,7 @@ const View: React.FC = observer((props) => {
               onClick={downloadTrack}
               icon={<DownloadOutlined style={{ fontSize: '24px' }} />}
               type="text"
+              loading={loading}
             />
           </div>
         </div>

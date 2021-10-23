@@ -36,6 +36,7 @@ const View: React.FC<Omit<ITracks, 'userTracks'>> = (props) => {
                     addTrackToUser={() => props.addTrackToUser(item.id)}
                     downloadTrack={() => props.downloadTrack(item.path, item.name)}
                     myTrack={props.activeTab === 'My'}
+                    loading={props.loadingDownloadAndAdd}
                   />
                 </div>
               );
