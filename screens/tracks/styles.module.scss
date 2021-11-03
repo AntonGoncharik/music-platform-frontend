@@ -1,6 +1,7 @@
 @import '../../styles//colors.scss';
 
 .container {
+  position: relative;
   background-color: $white;
 }
 
@@ -35,4 +36,10 @@
   bottom: -3rem;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.btn-create-track {
+  position: absolute;
+  right: 1rem;
+  z-index: 1;
 }

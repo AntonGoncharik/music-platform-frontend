@@ -4,37 +4,28 @@ import { InboxOutlined } from '@ant-design/icons';
 
 const { Dragger } = Upload;
 
-const props = {
-  name: 'file',
-  multiple: true,
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log('Dropped files', e.dataTransfer.files);
-  },
-};
+interface Upload {
+  callbackUploadTracks: (any) => void;
+}
 
-const View: React.FC = (props) => {
+const View: React.FC<Upload> = (props) => {
+  const onChange = (info) => {
+    if (info.file.status === 'done') {
+      props.callbackUploadTracks(info.fileList.map((item: any) => item.originFileObj));
+    }
+  };
+
+  const onRemove = (file: any) => {
+    // file.originFileObj
+    // props.callbackUploadTracks(info.fileList.map((item: any) => item.originFileObj));
+  };
+
   return (
-    <Dragger {...props}>
+    <Dragger accept="audio/*" multiple={true} onChange={onChange} onRemove={onRemove}>
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
       </p>
-      <p className="ant-upload-text">Click or drag file to this area to upload</p>
-      <p className="ant-upload-hint">
-        Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-        band files
-      </p>
+      <p className="ant-upload-text">Click or drag audio tracks to this area to upload</p>
     </Dragger>
   );
 };

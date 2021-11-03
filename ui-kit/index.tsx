@@ -12,6 +12,7 @@ import Text from './text';
 import Title from './title';
 import Dropdown from './dropdown';
 import UploadImage from './upload-image';
+import Modal from './modal';
 
 export {
   Avatar,
@@ -28,4 +29,5 @@ export {
   Title,
   Dropdown,
   UploadImage,
+  Modal,
 };

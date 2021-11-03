@@ -16,6 +16,8 @@ const Container: React.FC<ITracks> = observer((props) => {
   const [hasMoreTracks, setHasMoreTracks] = useState(true);
   const [loading, setLoading] = useState(false);
   const [loadingDownloadAndAdd, setLoadingDownloadAndAdd] = useState(false);
+  const [visibleModalCreateTrack, setVisibleModalCreateTrack] = useState(false);
+  const [uploadedTracks, setUploadedTracks] = useState(null);
 
   const store = getStore();
 
@@ -175,6 +177,40 @@ const Container: React.FC<ITracks> = observer((props) => {
     }
   };
 
+  const callbackUploadTracks = (files: any) => {
+    setUploadedTracks(files);
+  };
+
+  const uploadTracks = async () => {
+    try {
+      if (!uploadedTracks) {
+        return;
+      }
+
+      setLoading(true);
+
+      const userId = store.userStore.userId;
+
+      const formData = new FormData();
+      formData.append('userId', `${userId}`);
+      // @ts-ignore
+      uploadedTracks.forEach((item) => {
+        formData.append('tracks', item);
+      });
+
+      await TrackService.uploadTracks(formData, {
+        headers: { contentType: 'multipart/form-data' },
+      });
+
+      setUploadedTracks(null);
+      Notification.success('Tracks have been uploaded');
+    } catch (error: any) {
+      Notification.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View
       tracks={viewTracks}
@@ -189,6 +225,10 @@ const Container: React.FC<ITracks> = observer((props) => {
       loading={loading}
       activeTab={activeTab}
       loadingDownloadAndAdd={loadingDownloadAndAdd}
+      visibleModalCreateTrack={visibleModalCreateTrack}
+      setVisibleModalCreateTrack={setVisibleModalCreateTrack}
+      callbackUploadTracks={callbackUploadTracks}
+      uploadTracks={uploadTracks}
     />
   );
 });

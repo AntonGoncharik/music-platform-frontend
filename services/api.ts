@@ -20,6 +20,10 @@ axiosInstance.interceptors.response.use(
 );
 
 export const apiPost = (path: string, body: any, params: any = {}) => {
+  if (params?.headers?.contentType) {
+    return axiosInstance.post(path, body, params);
+  }
+
   return axiosInstance.post(path, JSON.stringify(body), params);
 };
 

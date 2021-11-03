@@ -32,4 +32,19 @@ export class TrackService {
       throw error;
     }
   }
+
+  static async uploadTracks(body: any, params?: any) {
+    try {
+      const token = globalThis.localStorage.getItem('token');
+      const result = await apiPost('tracks', body, {
+        headers: {
+          ...params?.headers,
+          Authorization: `jwt ${token}`,
+        },
+      });
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

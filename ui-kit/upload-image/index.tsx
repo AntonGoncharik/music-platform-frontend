@@ -51,6 +51,7 @@ const View: React.FC<IAvatar> = (props) => {
         className="upload-image"
         showUploadList={false}
         onChange={changeImage}
+        accept="image/*"
       >
         {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
       </Upload>

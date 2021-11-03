@@ -1,7 +1,8 @@
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { PlusOutlined } from '@ant-design/icons';
 
-import { Tabs, Title, Loader } from '../../ui-kit';
+import { Tabs, Title, Loader, Button, Modal, UploadZone } from '../../ui-kit';
 import { Track } from '../../components';
 import s from './styles.module.scss';
 import { tabsItems } from '../../constants';
@@ -18,6 +19,28 @@ const View: React.FC<Omit<ITracks, 'userTracks'>> = (props) => {
 
   return (
     <div className={s.container}>
+      {props.activeTab === 'My' && (
+        <div className={s['btn-create-track']}>
+          <Button
+            onClick={() => props.setVisibleModalCreateTrack(true)}
+            icon={<PlusOutlined style={{ fontSize: '24px' }} />}
+            type="text"
+            loading={props.loading}
+          />
+        </div>
+      )}
+      <Modal
+        title="Upload tracks"
+        visible={props.visibleModalCreateTrack}
+        onOk={() => {
+          props.uploadTracks();
+          props.setVisibleModalCreateTrack(false);
+        }}
+        onCancel={() => props.setVisibleModalCreateTrack(false)}
+        destroyOnClose
+      >
+        <UploadZone callbackUploadTracks={props.callbackUploadTracks} />
+      </Modal>
       <Tabs list={tabsItems} onChange={(value) => props.changeTab(value)}>
         <div className={classNameTracks()}>
           <InfiniteScroll

@@ -20,4 +20,8 @@ export interface ITracks {
   loading: boolean;
   activeTab: string;
   loadingDownloadAndAdd: boolean;
+  visibleModalCreateTrack: boolean;
+  setVisibleModalCreateTrack: (isVisible: boolean) => void;
+  callbackUploadTracks: (files: any) => void;
+  uploadTracks: () => void;
 }
