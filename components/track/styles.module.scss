@@ -20,6 +20,36 @@
     margin-bottom: 0rem;
     margin-left: 1rem;
   }
+
+  h4 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  @media screen and (max-width: 541px) {
+    h4 {
+      max-width: 22rem;
+    }
+  }
+
+  @media screen and (max-width: 415px) {
+    h4 {
+      max-width: 14rem;
+    }
+  }
+
+  @media screen and (max-width: 376px) {
+    h4 {
+      max-width: 11rem;
+    }
+  }
+
+  @media screen and (max-width: 321px) {
+    h4 {
+      max-width: 8rem;
+    }
+  }
 }
 
 .buttonDownload {
