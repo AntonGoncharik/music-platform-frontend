@@ -5,11 +5,11 @@ import { InboxOutlined } from '@ant-design/icons';
 const { Dragger } = Upload;
 
 interface Upload {
-  callbackUploadTracks: (any) => void;
+  callbackUploadTracks: (val: any) => void;
 }
 
 const View: React.FC<Upload> = (props) => {
-  const onChange = (info) => {
+  const onChange = (info: any) => {
     if (info.file.status === 'done') {
       props.callbackUploadTracks(info.fileList.map((item: any) => item.originFileObj));
     }

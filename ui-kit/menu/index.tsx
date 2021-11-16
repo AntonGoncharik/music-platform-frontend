@@ -31,6 +31,7 @@ const View: React.FC<IMenu> = (props) => {
     >
       {props.items.map((item) => {
         return (
+          // @ts-ignore
           <Menu.Item key={item.key} icon={icons[item.icon]} className={s.icon}>
             {item.name}
           </Menu.Item>
